@@ -127,93 +127,100 @@
     </div>
 
     <script>
-    const navContainer = document.getElementById('navigation');
-    const contentContainer = document.getElementById('content');
-    const fileLinksContainer = document.getElementById('fileLinks');
+        const navContainer = document.getElementById('navigation');
+        const contentContainer = document.getElementById('content');
+        const fileLinksContainer = document.getElementById('fileLinks');
 
-    const files = ['user_stories_recycling.json', 'user_stories_broker.json'];
+        // Map of file names to project names
+        const projectNames = {
+            'user_stories_recycling': 'Recycling Project',
+            'user_stories_federal_spending': 'Federal Spending Project',
+            // Add more mappings as needed
+        };
 
-    function displayCategories(data, fileName) {
-        const contentDiv = document.getElementById(`${fileName}-content`);
-        contentDiv.innerHTML = '';
+        function displayCategories(data, fileName) {
+            const contentDiv = document.getElementById(`${fileName}-content`);
+            contentDiv.innerHTML = '';
 
-        for (const categoryName in data) {
-            const categoryDiv = document.createElement('div');
-            categoryDiv.classList.add('category');
+            for (const categoryName in data) {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.classList.add('category');
 
-            const headerDiv = document.createElement('div');
-            headerDiv.classList.add('category-header');
-            headerDiv.textContent = categoryName;
-            headerDiv.addEventListener('click', () => {
-                categoryDiv.classList.toggle('collapsed');
+                const headerDiv = document.createElement('div');
+                headerDiv.classList.add('category-header');
+                headerDiv.textContent = categoryName;
+                headerDiv.addEventListener('click', () => {
+                    categoryDiv.classList.toggle('collapsed');
+                });
+
+                const contentUl = document.createElement('ul');
+                contentUl.classList.add('category-content');
+                data[categoryName].forEach(story => {
+                    const storyLi = document.createElement('li');
+                    storyLi.textContent = story;
+                    contentUl.appendChild(storyLi);
+                });
+
+                categoryDiv.appendChild(headerDiv);
+                categoryDiv.appendChild(contentUl);
+                contentDiv.appendChild(categoryDiv);
+            }
+        }
+
+        function loadPage(fileName) {
+            const contentDivs = document.querySelectorAll('.content-page');
+            contentDivs.forEach(div => div.classList.add('hidden'));
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+
+            const activeLink = document.querySelector(`.nav-link[data-file="${fileName}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+
+            const selectedContentDiv = document.getElementById(`${fileName}-content`);
+            if (selectedContentDiv) {
+                selectedContentDiv.classList.remove('hidden');
+            } else {
+                fetch(`${fileName}.json`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const newContentDiv = document.createElement('div');
+                        newContentDiv.id = `${fileName}-content`;
+                        newContentDiv.classList.add('content-page');
+                        contentContainer.appendChild(newContentDiv);
+                        displayCategories(data, fileName);
+                    })
+                    .catch(error => console.error('Error loading data:', error));
+            }
+        }
+
+        // Get the file names from the project names map
+        const fileNames = Object.keys(projectNames);
+
+        fileNames.forEach(fileName => {
+            const projectName = projectNames[fileName];
+            const link = document.createElement('a');
+            link.classList.add('nav-link');
+            link.href = `#${fileName}`;
+            link.setAttribute('data-file', fileName);
+            link.textContent = projectName; // Use project name for display
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                loadPage(fileName);
             });
+            fileLinksContainer.appendChild(link);
 
-            const contentUl = document.createElement('ul');
-            contentUl.classList.add('category-content');
-            data[categoryName].forEach(story => {
-                const storyLi = document.createElement('li');
-                storyLi.textContent = story;
-                contentUl.appendChild(storyLi);
-            });
-
-            categoryDiv.appendChild(headerDiv);
-            categoryDiv.appendChild(contentUl);
-            contentDiv.appendChild(categoryDiv);
-        }
-    }
-
-    function loadPage(fileName) {
-        const contentDivs = document.querySelectorAll('.content-page');
-        contentDivs.forEach(div => div.classList.add('hidden'));
-
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => link.classList.remove('active'));
-
-        const activeLink = document.querySelector(`.nav-link[data-file="${fileName}"]`);
-        if (activeLink) {
-            activeLink.classList.add('active');
-        }
-
-        const selectedContentDiv = document.getElementById(`${fileName}-content`);
-        if (selectedContentDiv) {
-            selectedContentDiv.classList.remove('hidden');
-        } else {
-            fetch(`${fileName}.json`)
-                .then(response => response.json())
-                .then(data => {
-                    const newContentDiv = document.createElement('div');
-                    newContentDiv.id = `${fileName}-content`;
-                    newContentDiv.classList.add('content-page');
-                    contentContainer.appendChild(newContentDiv);
-                    displayCategories(data, fileName);
-                })
-                .catch(error => console.error('Error loading data:', error));
-        }
-    }
-
-    files.forEach(file => {
-        const fileName = file.split('.')[0];
-        const link = document.createElement('a');
-        link.classList.add('nav-link');
-        link.href = `#${fileName}`;
-        link.setAttribute('data-file', fileName);
-        link.textContent = fileName.replace(/_/g, ' ');
-        link.addEventListener('click', (event) => {
-            event.preventDefault();
-            loadPage(fileName);
+            const contentDiv = document.createElement('div');
+            contentDiv.id = `${fileName}-content`;
+            contentDiv.classList.add('content-page', 'hidden');
+            contentContainer.appendChild(contentDiv);
         });
-        fileLinksContainer.appendChild(link);
 
-        const contentDiv = document.createElement('div');
-        contentDiv.id = `${fileName}-content`;
-        contentDiv.classList.add('content-page', 'hidden');
-        contentContainer.appendChild(contentDiv);
-    });
-
-    if (files.length > 0) {
-        loadPage(files[0].split('.')[0]);
-    }
-</script>
-
+        if (fileNames.length > 0) {
+            loadPage(fileNames[0]);
+        }
+    </script>
 </body>
 </html>
