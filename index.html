@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Story Hub</title>
+    <title>Categorized User Stories</title>
     <style>
         body {
             font-family: sans-serif;
@@ -117,110 +117,103 @@
 <body>
     <div class="sidebar" id="navigation">
         <h2>Projects</h2>
+        <div id="fileLinks"></div>
     </div>
-    
+
     <div class="main-content">
-        <h1 class="page-title">User Story Hub</h1>
+        <h1 class="page-title">Categorized User Stories</h1>
         <div class="container" id="content">
         </div>
     </div>
 
     <script>
-        const navContainer = document.getElementById('navigation');
-        const contentContainer = document.getElementById('content');
-        const userStoriesDirectory = './'; 
+    const navContainer = document.getElementById('navigation');
+    const contentContainer = document.getElementById('content');
+    const fileLinksContainer = document.getElementById('fileLinks');
 
-        function displayCategories(data, fileName) {
-            const contentDiv = document.getElementById(`${fileName}-content`);
-            contentDiv.innerHTML = '';
+    const files = ['user_stories_recycling.json', 'user_stories_broker.json'];
 
-            for (const categoryName in data) {
-                const categoryDiv = document.createElement('div');
-                categoryDiv.classList.add('category');
+    function displayCategories(data, fileName) {
+        const contentDiv = document.getElementById(`${fileName}-content`);
+        contentDiv.innerHTML = '';
 
-                const headerDiv = document.createElement('div');
-                headerDiv.classList.add('category-header');
-                headerDiv.textContent = categoryName;
-                headerDiv.addEventListener('click', () => {
-                    categoryDiv.classList.toggle('collapsed');
-                });
+        for (const categoryName in data) {
+            const categoryDiv = document.createElement('div');
+            categoryDiv.classList.add('category');
 
-                const contentUl = document.createElement('ul');
-                contentUl.classList.add('category-content');
-                data[categoryName].forEach(story => {
-                    const storyLi = document.createElement('li');
-                    storyLi.textContent = story;
-                    contentUl.appendChild(storyLi);
-                });
+            const headerDiv = document.createElement('div');
+            headerDiv.classList.add('category-header');
+            headerDiv.textContent = categoryName;
+            headerDiv.addEventListener('click', () => {
+                categoryDiv.classList.toggle('collapsed');
+            });
 
-                categoryDiv.appendChild(headerDiv);
-                categoryDiv.appendChild(contentUl);
-                contentDiv.appendChild(categoryDiv);
-            }
+            const contentUl = document.createElement('ul');
+            contentUl.classList.add('category-content');
+            data[categoryName].forEach(story => {
+                const storyLi = document.createElement('li');
+                storyLi.textContent = story;
+                contentUl.appendChild(storyLi);
+            });
+
+            categoryDiv.appendChild(headerDiv);
+            categoryDiv.appendChild(contentUl);
+            contentDiv.appendChild(categoryDiv);
+        }
+    }
+
+    function loadPage(fileName) {
+        const contentDivs = document.querySelectorAll('.content-page');
+        contentDivs.forEach(div => div.classList.add('hidden'));
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => link.classList.remove('active'));
+
+        const activeLink = document.querySelector(`.nav-link[data-file="${fileName}"]`);
+        if (activeLink) {
+            activeLink.classList.add('active');
         }
 
-        function loadPage(fileName) {
-            const contentDivs = document.querySelectorAll('.content-page');
-            contentDivs.forEach(div => div.classList.add('hidden'));
-
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => link.classList.remove('active'));
-
-            const activeLink = document.querySelector(`.nav-link[href="#${fileName}"]`);
-            if (activeLink) {
-                activeLink.classList.add('active');
-            }
-
-            const selectedContentDiv = document.getElementById(`${fileName}-content`);
-            if (selectedContentDiv) {
-                selectedContentDiv.classList.remove('hidden');
-            } else {
-                fetch(`${userStoriesDirectory}${fileName}.json`)
-                    .then(response => response.json())
-                    .then(data => {
-                        const newContentDiv = document.createElement('div');
-                        newContentDiv.id = `${fileName}-content`;
-                        newContentDiv.classList.add('content-page');
-                        contentContainer.appendChild(newContentDiv);
-                        displayCategories(data, fileName);
-                    })
-                    .catch(error => console.error('Error loading data:', error));
-            }
+        const selectedContentDiv = document.getElementById(`${fileName}-content`);
+        if (selectedContentDiv) {
+            selectedContentDiv.classList.remove('hidden');
+        } else {
+            fetch(`${fileName}.json`)
+                .then(response => response.json())
+                .then(data => {
+                    const newContentDiv = document.createElement('div');
+                    newContentDiv.id = `${fileName}-content`;
+                    newContentDiv.classList.add('content-page');
+                    contentContainer.appendChild(newContentDiv);
+                    displayCategories(data, fileName);
+                })
+                .catch(error => console.error('Error loading data:', error));
         }
+    }
 
-        fetch(userStoriesDirectory)
-            .then(response => response.text())
-            .then(html => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                const links = doc.querySelectorAll('a');
-                const jsonFiles = Array.from(links)
-                    .map(link => link.href.split('/').pop())
-                    .filter(fileName => fileName.startsWith('user_stories_') && fileName.endsWith('.json'))
-                    .map(fileName => fileName.replace('.json', ''));
+    files.forEach(file => {
+        const fileName = file.split('.')[0];
+        const link = document.createElement('a');
+        link.classList.add('nav-link');
+        link.href = `#${fileName}`;
+        link.setAttribute('data-file', fileName);
+        link.textContent = fileName.replace(/_/g, ' ');
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            loadPage(fileName);
+        });
+        fileLinksContainer.appendChild(link);
 
-                jsonFiles.forEach(fileName => {
-                    const link = document.createElement('a');
-                    link.classList.add('nav-link');
-                    link.href = `#${fileName}`;
-                    link.textContent = fileName.replace(/_/g, ' ');
-                    link.addEventListener('click', (event) => {
-                        event.preventDefault();
-                        loadPage(fileName);
-                    });
-                    navContainer.appendChild(link);
+        const contentDiv = document.createElement('div');
+        contentDiv.id = `${fileName}-content`;
+        contentDiv.classList.add('content-page', 'hidden');
+        contentContainer.appendChild(contentDiv);
+    });
 
-                    const contentDiv = document.createElement('div');
-                    contentDiv.id = `${fileName}-content`;
-                    contentDiv.classList.add('content-page', 'hidden');
-                    contentContainer.appendChild(contentDiv);
-                });
+    if (files.length > 0) {
+        loadPage(files[0].split('.')[0]);
+    }
+</script>
 
-                if (jsonFiles.length > 0) {
-                    loadPage(jsonFiles[0]);
-                }
-            })
-            .catch(error => console.error('Error fetching directory contents:', error));
-    </script>
 </body>
 </html>
