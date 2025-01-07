@@ -127,76 +127,77 @@
     </div>
 
     <script>
-        const navContainer = document.getElementById('navigation');
-        const contentContainer = document.getElementById('content');
-        const fileLinksContainer = document.getElementById('fileLinks');
+    const navContainer = document.getElementById('navigation');
+    const contentContainer = document.getElementById('content');
+    const fileLinksContainer = document.getElementById('fileLinks');
 
-        // Map of file names to project names
-        const projectNames = {
-            'user_stories_recycling': 'Recycling Project',
-            'user_stories_federal_spending': 'Federal Spending Project',
-            // Add more mappings as needed
-        };
+    // Map of file names to project names
+    const projectNames = {
+        'user_stories_recycling': 'Recycling Project',
+        'user_stories_federal_spending': 'Federal Spending Project',
+        // Add more mappings as needed
+    };
 
-        function displayCategories(data, fileName) {
-            const contentDiv = document.getElementById(`${fileName}-content`);
-            contentDiv.innerHTML = '';
+    function displayCategories(data, fileName) {
+        const contentDiv = document.getElementById(`${fileName}-content`);
+        contentDiv.innerHTML = '';
 
-            for (const categoryName in data) {
-                const categoryDiv = document.createElement('div');
-                categoryDiv.classList.add('category');
+        for (const categoryName in data) {
+            const categoryDiv = document.createElement('div');
+            categoryDiv.classList.add('category');
 
-                const headerDiv = document.createElement('div');
-                headerDiv.classList.add('category-header');
-                headerDiv.textContent = categoryName;
-                headerDiv.addEventListener('click', () => {
-                    categoryDiv.classList.toggle('collapsed');
-                });
+            const headerDiv = document.createElement('div');
+            headerDiv.classList.add('category-header');
+            headerDiv.textContent = categoryName;
+            headerDiv.addEventListener('click', () => {
+                categoryDiv.classList.toggle('collapsed');
+            });
 
-                const contentUl = document.createElement('ul');
-                contentUl.classList.add('category-content');
-                data[categoryName].forEach(story => {
-                    const storyLi = document.createElement('li');
-                    storyLi.textContent = story;
-                    contentUl.appendChild(storyLi);
-                });
+            const contentUl = document.createElement('ul');
+            contentUl.classList.add('category-content');
+            data[categoryName].forEach(story => {
+                const storyLi = document.createElement('li');
+                storyLi.textContent = story;
+                contentUl.appendChild(storyLi);
+            });
 
-                categoryDiv.appendChild(headerDiv);
-                categoryDiv.appendChild(contentUl);
-                contentDiv.appendChild(categoryDiv);
-            }
+            categoryDiv.appendChild(headerDiv);
+            categoryDiv.appendChild(contentUl);
+            contentDiv.appendChild(categoryDiv);
+        }
+    }
+
+    function loadPage(fileName) {
+        const contentDivs = document.querySelectorAll('.content-page');
+        contentDivs.forEach(div => div.classList.add('hidden'));
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => link.classList.remove('active'));
+
+        const activeLink = document.querySelector(`.nav-link[data-file="${fileName}"]`);
+        if (activeLink) {
+            activeLink.classList.add('active');
         }
 
-        function loadPage(fileName) {
-            const contentDivs = document.querySelectorAll('.content-page');
-            contentDivs.forEach(div => div.classList.add('hidden'));
-
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => link.classList.remove('active'));
-
-            const activeLink = document.querySelector(`.nav-link[data-file="${fileName}"]`);
-            if (activeLink) {
-                activeLink.classList.add('active');
-            }
-
-            const selectedContentDiv = document.getElementById(`${fileName}-content`);
-            if (selectedContentDiv) {
-                selectedContentDiv.classList.remove('hidden');
-            } else {
-                fetch(`${fileName}.json`)
-                    .then(response => response.json())
-                    .then(data => {
-                        const newContentDiv = document.createElement('div');
-                        newContentDiv.id = `${fileName}-content`;
-                        newContentDiv.classList.add('content-page');
-                        contentContainer.appendChild(newContentDiv);
-                        displayCategories(data, fileName);
-                    })
-                    .catch(error => console.error('Error loading data:', error));
-            }
+        const selectedContentDiv = document.getElementById(`${fileName}-content`);
+        if (selectedContentDiv) {
+            selectedContentDiv.classList.remove('hidden');
+        } else {
+            fetch(`${fileName}.json`)
+                .then(response => response.json())
+                .then(data => {
+                    const newContentDiv = document.createElement('div');
+                    newContentDiv.id = `${fileName}-content`;
+                    newContentDiv.classList.add('content-page');
+                    contentContainer.appendChild(newContentDiv);
+                    displayCategories(data, fileName);
+                })
+                .catch(error => console.error('Error loading data:', error));
         }
+    }
 
-        // Get the file names from the project names map
+    // Function to initialize navigation and content
+    function initializePage() {
         const fileNames = Object.keys(projectNames);
 
         fileNames.forEach(fileName => {
@@ -205,22 +206,29 @@
             link.classList.add('nav-link');
             link.href = `#${fileName}`;
             link.setAttribute('data-file', fileName);
-            link.textContent = projectName; // Use project name for display
-            link.addEventListener('click', (event) => {
-                event.preventDefault();
-                loadPage(fileName);
-            });
+            link.textContent = projectName;
             fileLinksContainer.appendChild(link);
 
             const contentDiv = document.createElement('div');
             contentDiv.id = `${fileName}-content`;
             contentDiv.classList.add('content-page', 'hidden');
             contentContainer.appendChild(contentDiv);
+
+            // Add event listener to the link after creating the content div
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                loadPage(fileName);
+            });
         });
 
         if (fileNames.length > 0) {
             loadPage(fileNames[0]);
         }
-    </script>
+    }
+
+    // Call the function to initialize the page
+    initializePage();
+</script>
+
 </body>
 </html>
