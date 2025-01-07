@@ -8,11 +8,24 @@
         body {
             font-family: sans-serif;
             margin: 0;
+            display: flex;
+            min-height: 100vh;
             background-color: #f5f5f5;
         }
         h1, h2 {
             text-align: center;
             color: #333;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #eee;
+            padding: 20px;
+            border-right: 1px solid #ddd;
+            overflow-y: auto;
+        }
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
         }
         .container {
             max-width: 90%;
@@ -22,18 +35,10 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        .nav {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-            padding: 10px 0;
-            background-color: #eee;
-            border-bottom: 1px solid #ddd;
-        }
         .nav-link {
+            display: block;
             padding: 8px 16px;
-            margin: 5px;
+            margin-bottom: 10px;
             background-color: #007bff;
             color: #fff;
             text-decoration: none;
@@ -42,6 +47,9 @@
             font-size: 1rem;
         }
         .nav-link:hover {
+            background-color: #0056b3;
+        }
+        .nav-link.active {
             background-color: #0056b3;
         }
         .category {
@@ -69,9 +77,9 @@
             transition: transform 0.3s ease;
         }
         .collapsed .category-header::after {
-             transform: rotate(-180deg); /* Rotates arrow on collapse */
-             content: '\25BA';
-         }
+            transform: rotate(-180deg); /* Rotates arrow on collapse */
+            content: '\25BA';
+        }
         .category-content {
             padding: 15px;
             display: none;
@@ -107,26 +115,24 @@
     </style>
 </head>
 <body>
-
-    <h1 class="page-title">User Story Hub</h1>
-
-    <div class="nav" id="navigation">
+    <div class="sidebar" id="navigation">
+        <h2>Projects</h2>
+    </div>
+    
+    <div class="main-content">
+        <h1 class="page-title">User Story Hub</h1>
+        <div class="container" id="content">
         </div>
-
-    <div class="container" id="content">
-        </div>
-
-    <div class="footer">
-        <p>Your Footer Text Here &copy; 2023</p>
     </div>
 
     <script>
-        const files = ['user_stories_recycling.json', 'user_stories_federal_spending.json']; // Add more files as needed
         const navContainer = document.getElementById('navigation');
         const contentContainer = document.getElementById('content');
+        const userStoriesDirectory = './'; 
 
         function displayCategories(data, fileName) {
-            contentContainer.innerHTML = '';
+            const contentDiv = document.getElementById(`${fileName}-content`);
+            contentDiv.innerHTML = '';
 
             for (const categoryName in data) {
                 const categoryDiv = document.createElement('div');
@@ -149,58 +155,72 @@
 
                 categoryDiv.appendChild(headerDiv);
                 categoryDiv.appendChild(contentUl);
-                contentContainer.appendChild(categoryDiv);
+                contentDiv.appendChild(categoryDiv);
             }
         }
-        
+
         function loadPage(fileName) {
-            // Hide all content divs
             const contentDivs = document.querySelectorAll('.content-page');
             contentDivs.forEach(div => div.classList.add('hidden'));
 
-            // Show the selected content div
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+
+            const activeLink = document.querySelector(`.nav-link[href="#${fileName}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+
             const selectedContentDiv = document.getElementById(`${fileName}-content`);
             if (selectedContentDiv) {
                 selectedContentDiv.classList.remove('hidden');
             } else {
-                // If content div doesn't exist, fetch and display data
-                fetch(fileName + '.json')
+                fetch(`${userStoriesDirectory}${fileName}.json`)
                     .then(response => response.json())
                     .then(data => {
                         const newContentDiv = document.createElement('div');
                         newContentDiv.id = `${fileName}-content`;
                         newContentDiv.classList.add('content-page');
                         contentContainer.appendChild(newContentDiv);
-                        displayCategories(data, fileName, newContentDiv);
+                        displayCategories(data, fileName);
                     })
                     .catch(error => console.error('Error loading data:', error));
             }
         }
 
-        files.forEach(file => {
-            const fileName = file.split('.')[0];
-            const link = document.createElement('a');
-            link.classList.add('nav-link');
-            link.href = `#${fileName}`;
-            link.textContent = fileName.replace(/_/g, ' ');
-            link.addEventListener('click', (event) => {
-                event.preventDefault();
-                loadPage(fileName);
-            });
-            navContainer.appendChild(link);
+        fetch(userStoriesDirectory)
+            .then(response => response.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const links = doc.querySelectorAll('a');
+                const jsonFiles = Array.from(links)
+                    .map(link => link.href.split('/').pop())
+                    .filter(fileName => fileName.startsWith('user_stories_') && fileName.endsWith('.json'))
+                    .map(fileName => fileName.replace('.json', ''));
 
-            // Create content divs for each file (initially hidden)
-            const contentDiv = document.createElement('div');
-            contentDiv.id = `${fileName}-content`;
-            contentDiv.classList.add('content-page', 'hidden');
-            contentContainer.appendChild(contentDiv);
-        });
+                jsonFiles.forEach(fileName => {
+                    const link = document.createElement('a');
+                    link.classList.add('nav-link');
+                    link.href = `#${fileName}`;
+                    link.textContent = fileName.replace(/_/g, ' ');
+                    link.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        loadPage(fileName);
+                    });
+                    navContainer.appendChild(link);
 
-        // Load the first file on page load
-        if (files.length > 0) {
-            loadPage(files[0].split('.')[0]);
-        }
+                    const contentDiv = document.createElement('div');
+                    contentDiv.id = `${fileName}-content`;
+                    contentDiv.classList.add('content-page', 'hidden');
+                    contentContainer.appendChild(contentDiv);
+                });
+
+                if (jsonFiles.length > 0) {
+                    loadPage(jsonFiles[0]);
+                }
+            })
+            .catch(error => console.error('Error fetching directory contents:', error));
     </script>
-
 </body>
 </html>
