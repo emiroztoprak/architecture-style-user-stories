@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Story Categories</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+        }
+        .category {
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .category-header {
+            background-color: #f0f0f0;
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #ccc;
+            user-select: none;
+        }
+        .category-content {
+            padding: 10px;
+            display: block;
+        }
+        .collapsed .category-content {
+            display: none;
+        }
+        .category-header::after {
+            content: "+";
+            float: right;
+            margin-left: 5px;
+        }
+        .collapsed .category-header::after {
+            content: "-";
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>User Story Categories</h1>
+
+    <div id="categories-container"></div>
+
+    <script>
+        fetch('user_stories_recycling.json') // Fetch the JSON data
+            .then(response => response.json())
+            .then(categoriesData => {
+                const categoriesContainer = document.getElementById('categories-container');
+
+                for (const categoryName in categoriesData) {
+                    const categoryDiv = document.createElement('div');
+                    categoryDiv.classList.add('category');
+
+                    const headerDiv = document.createElement('div');
+                    headerDiv.classList.add('category-header');
+                    headerDiv.textContent = categoryName;
+                    headerDiv.addEventListener('click', () => {
+                        categoryDiv.classList.toggle('collapsed');
+                    });
+
+                    const contentUl = document.createElement('ul');
+                    contentUl.classList.add('category-content');
+                    categoriesData[categoryName].forEach(story => {
+                        const storyLi = document.createElement('li');
+                        storyLi.textContent = story;
+                        contentUl.appendChild(storyLi);
+                    });
+
+                    categoryDiv.appendChild(headerDiv);
+                    categoryDiv.appendChild(contentUl);
+                    categoriesContainer.appendChild(categoryDiv);
+                }
+            })
+            .catch(error => {
+                console.error("Error loading user stories:", error);
+                const categoriesContainer = document.getElementById('categories-container');
+                categoriesContainer.textContent = "Error loading user stories. Please check if user-stories.json is present.";
+            });
+    </script>
+
+</body>
+</html>
