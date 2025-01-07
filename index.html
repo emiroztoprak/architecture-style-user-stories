@@ -70,22 +70,12 @@
             align-items: center;
             justify-content: space-between;
         }
-        .category-header::after {
-            content: '\25BC'; /* Down arrow */
-            font-size: 12px;
-            color: #555;
-            transition: transform 0.3s ease;
-        }
-        .collapsed .category-header::after {
-            transform: rotate(-180deg); /* Rotates arrow on collapse */
-            content: '\25BA';
-        }
         .category-content {
             padding: 15px;
             display: none;
             line-height: 1.6;
         }
-        .collapsed .category-content{
+        .expanded .category-content{
             display: block;
         }
         ul {
@@ -111,6 +101,17 @@
             border-top: 1px solid #ddd;
             font-size: 0.8rem;
             color: #666;
+        }
+        /* Updated CSS for arrow rotation */
+        .category-header::after {
+            content: '\25BC'; /* Down arrow */
+            font-size: 12px;
+            color: #555;
+            transition: transform 0.3s ease;
+        }
+        .expanded .category-header::after {
+            transform: rotate(180deg); /* Rotates arrow on expand */
+            content: '\25B2'; /* Up arrow */
         }
     </style>
 </head>
@@ -140,7 +141,9 @@
 
     function displayCategories(data, fileName) {
         const contentDiv = document.getElementById(`${fileName}-content`);
-        contentDiv.innerHTML = '';
+        if (!contentDiv) return;
+
+        contentDiv.innerHTML = ''; // Clear any existing content
 
         for (const categoryName in data) {
             const categoryDiv = document.createElement('div');
@@ -150,7 +153,7 @@
             headerDiv.classList.add('category-header');
             headerDiv.textContent = categoryName;
             headerDiv.addEventListener('click', () => {
-                categoryDiv.classList.toggle('collapsed');
+                categoryDiv.classList.toggle('expanded');
             });
 
             const contentUl = document.createElement('ul');
@@ -168,31 +171,58 @@
     }
 
     function loadPage(fileName) {
+        const contentDivId = `${fileName}-content`;
+        let selectedContentDiv = document.getElementById(contentDivId);
+
+        // Hide all content pages
         const contentDivs = document.querySelectorAll('.content-page');
         contentDivs.forEach(div => div.classList.add('hidden'));
 
+        // Remove 'active' class from all nav links
         const navLinks = document.querySelectorAll('.nav-link');
         navLinks.forEach(link => link.classList.remove('active'));
 
+        // Add 'active' class to the clicked link
         const activeLink = document.querySelector(`.nav-link[data-file="${fileName}"]`);
         if (activeLink) {
             activeLink.classList.add('active');
         }
 
-        const selectedContentDiv = document.getElementById(`${fileName}-content`);
-        if (selectedContentDiv) {
+        // If the content div exists and has content, display it
+        if (selectedContentDiv && selectedContentDiv.innerHTML.trim() !== '') {
             selectedContentDiv.classList.remove('hidden');
         } else {
+            // If not, fetch the JSON data and display it
             fetch(`${fileName}.json`)
-                .then(response => response.json())
-                .then(data => {
-                    const newContentDiv = document.createElement('div');
-                    newContentDiv.id = `${fileName}-content`;
-                    newContentDiv.classList.add('content-page');
-                    contentContainer.appendChild(newContentDiv);
-                    displayCategories(data, fileName);
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
                 })
-                .catch(error => console.error('Error loading data:', error));
+                .then(data => {
+                    if (!selectedContentDiv) {
+                        selectedContentDiv = document.createElement('div');
+                        selectedContentDiv.id = contentDivId;
+                        selectedContentDiv.classList.add('content-page');
+                        contentContainer.appendChild(selectedContentDiv);
+                    } else {
+                        selectedContentDiv.innerHTML = ''; // Clear existing content
+                    }
+                    displayCategories(data, fileName);
+                    selectedContentDiv.classList.remove('hidden');
+                })
+                .catch(error => {
+                    console.error('Error loading data:', error);
+                    if (!selectedContentDiv) {
+                        selectedContentDiv = document.createElement('div');
+                        selectedContentDiv.id = contentDivId;
+                        selectedContentDiv.classList.add('content-page');
+                        contentContainer.appendChild(selectedContentDiv);
+                    }
+                    selectedContentDiv.innerHTML = '<p>Failed to load data.</p>';
+                    selectedContentDiv.classList.remove('hidden');
+                });
         }
     }
 
@@ -209,12 +239,7 @@
             link.textContent = projectName;
             fileLinksContainer.appendChild(link);
 
-            const contentDiv = document.createElement('div');
-            contentDiv.id = `${fileName}-content`;
-            contentDiv.classList.add('content-page', 'hidden');
-            contentContainer.appendChild(contentDiv);
-
-            // Add event listener to the link after creating the content div
+            // Add event listener to the link
             link.addEventListener('click', (event) => {
                 event.preventDefault();
                 loadPage(fileName);
@@ -228,7 +253,7 @@
 
     // Call the function to initialize the page
     initializePage();
-</script>
+    </script>
 
 </body>
 </html>
