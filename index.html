@@ -3,88 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Story Categories</title>
+    <title>User Story Hub</title>
     <style>
         body {
             font-family: sans-serif;
-            margin: 20px;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 90%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            padding: 10px 0;
+            background-color: #eee;
+            border-bottom: 1px solid #ddd;
+        }
+        .nav-link {
+            padding: 8px 16px;
+            margin: 5px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+        }
+        .nav-link:hover {
+            background-color: #0056b3;
         }
         .category {
             border: 1px solid #ccc;
-            margin-bottom: 10px;
-            border-radius: 5px;
+            margin-bottom: 20px;
+            border-radius: 8px;
             overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         .category-header {
-            background-color: #f0f0f0;
-            padding: 10px;
+            background-color: #e9ecef;
+            padding: 10px 15px;
             cursor: pointer;
             border-bottom: 1px solid #ccc;
             user-select: none;
-        }
-        .category-content {
-            padding: 10px;
-            display: block;
-        }
-        .collapsed .category-content {
-            display: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
         .category-header::after {
-            content: "+";
-            float: right;
-            margin-left: 5px;
+            content: '\25BC'; /* Down arrow */
+            font-size: 12px;
+            color: #555;
+            transition: transform 0.3s ease;
         }
         .collapsed .category-header::after {
-            content: "-";
+             transform: rotate(-180deg); /* Rotates arrow on collapse */
+             content: '\25BA';
+         }
+        .category-content {
+            padding: 15px;
+            display: none;
+            line-height: 1.6;
+        }
+        .collapsed .category-content{
+            display: block;
         }
         ul {
             list-style-type: disc;
-            padding-left: 20px;
-            margin: 5px 0;
+            padding-left: 40px;
+            margin: 10px 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        .page-title {
+            margin-top: 0;
+            padding-top: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #eee;
+            border-top: 1px solid #ddd;
+            font-size: 0.8rem;
+            color: #666;
         }
     </style>
 </head>
 <body>
 
-    <h1>User Story Categories</h1>
+    <h1 class="page-title">User Story Hub</h1>
 
-    <div id="categories-container"></div>
+    <div class="nav" id="navigation">
+        </div>
+
+    <div class="container" id="content">
+        </div>
+
+    <div class="footer">
+        <p>Your Footer Text Here &copy; 2023</p>
+    </div>
 
     <script>
-        fetch('user_stories_recycling.json') // Fetch the JSON data
-            .then(response => response.json())
-            .then(categoriesData => {
-                const categoriesContainer = document.getElementById('categories-container');
+        const files = ['user_stories_recycling.json', 'user_stories_federal_spending.json']; // Add more files as needed
+        const navContainer = document.getElementById('navigation');
+        const contentContainer = document.getElementById('content');
 
-                for (const categoryName in categoriesData) {
-                    const categoryDiv = document.createElement('div');
-                    categoryDiv.classList.add('category');
+        function displayCategories(data, fileName) {
+            contentContainer.innerHTML = '';
 
-                    const headerDiv = document.createElement('div');
-                    headerDiv.classList.add('category-header');
-                    headerDiv.textContent = categoryName;
-                    headerDiv.addEventListener('click', () => {
-                        categoryDiv.classList.toggle('collapsed');
-                    });
+            for (const categoryName in data) {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.classList.add('category');
 
-                    const contentUl = document.createElement('ul');
-                    contentUl.classList.add('category-content');
-                    categoriesData[categoryName].forEach(story => {
-                        const storyLi = document.createElement('li');
-                        storyLi.textContent = story;
-                        contentUl.appendChild(storyLi);
-                    });
+                const headerDiv = document.createElement('div');
+                headerDiv.classList.add('category-header');
+                headerDiv.textContent = categoryName;
+                headerDiv.addEventListener('click', () => {
+                    categoryDiv.classList.toggle('collapsed');
+                });
 
-                    categoryDiv.appendChild(headerDiv);
-                    categoryDiv.appendChild(contentUl);
-                    categoriesContainer.appendChild(categoryDiv);
-                }
-            })
-            .catch(error => {
-                console.error("Error loading user stories:", error);
-                const categoriesContainer = document.getElementById('categories-container');
-                categoriesContainer.textContent = "Error loading user stories. Please check if user-stories.json is present.";
+                const contentUl = document.createElement('ul');
+                contentUl.classList.add('category-content');
+                data[categoryName].forEach(story => {
+                    const storyLi = document.createElement('li');
+                    storyLi.textContent = story;
+                    contentUl.appendChild(storyLi);
+                });
+
+                categoryDiv.appendChild(headerDiv);
+                categoryDiv.appendChild(contentUl);
+                contentContainer.appendChild(categoryDiv);
+            }
+        }
+        
+        function loadPage(fileName) {
+            // Hide all content divs
+            const contentDivs = document.querySelectorAll('.content-page');
+            contentDivs.forEach(div => div.classList.add('hidden'));
+
+            // Show the selected content div
+            const selectedContentDiv = document.getElementById(`${fileName}-content`);
+            if (selectedContentDiv) {
+                selectedContentDiv.classList.remove('hidden');
+            } else {
+                // If content div doesn't exist, fetch and display data
+                fetch(fileName + '.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        const newContentDiv = document.createElement('div');
+                        newContentDiv.id = `${fileName}-content`;
+                        newContentDiv.classList.add('content-page');
+                        contentContainer.appendChild(newContentDiv);
+                        displayCategories(data, fileName, newContentDiv);
+                    })
+                    .catch(error => console.error('Error loading data:', error));
+            }
+        }
+
+        files.forEach(file => {
+            const fileName = file.split('.')[0];
+            const link = document.createElement('a');
+            link.classList.add('nav-link');
+            link.href = `#${fileName}`;
+            link.textContent = fileName.replace(/_/g, ' ');
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                loadPage(fileName);
             });
+            navContainer.appendChild(link);
+
+            // Create content divs for each file (initially hidden)
+            const contentDiv = document.createElement('div');
+            contentDiv.id = `${fileName}-content`;
+            contentDiv.classList.add('content-page', 'hidden');
+            contentContainer.appendChild(contentDiv);
+        });
+
+        // Load the first file on page load
+        if (files.length > 0) {
+            loadPage(files[0].split('.')[0]);
+        }
     </script>
 
 </body>
