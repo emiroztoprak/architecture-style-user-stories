@@ -113,6 +113,28 @@
             transform: rotate(180deg); /* Rotates arrow on expand */
             content: '\25B2'; /* Up arrow */
         }
+        /* Styles for Embedded Google Forms */
+        .google-form {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .google-form iframe {
+            width: 100%;
+            height: 1500px; /* Adjust height as needed */
+            border: none;
+            border-radius: 4px;
+            overflow: hidden; /* Prevent internal scrolling */
+        }
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .google-form iframe {
+                height: 2000px; /* Adjust for mobile if necessary */
+            }
+        }
     </style>
 </head>
 <body>
@@ -136,6 +158,13 @@
     const projectNames = {
         'user_stories_recycling': 'Recycling Project',
         'user_stories_federal_spending': 'Federal Spending Project',
+        // Add more mappings as needed
+    };
+
+     // Map of file names to Google Form embed URLs
+     const googleForms = {
+        'user_stories_recycling': 'https://docs.google.com/forms/d/e/1FAIpQLSfMtAfbURj--l131BgOvsC2tp-JugqHeC7iJaHMldjC-XIPSw/viewform?embedded=true',
+        'user_stories_federal_spending': "https://docs.google.com/forms/d/e/1FAIpQLSeIh0r2-q7wH4-KgButqaa1Db8mlO55I0TGse7zDYtQ9yS5ZQ/viewform?embedded=true",
         // Add more mappings as needed
     };
 
@@ -167,6 +196,25 @@
             categoryDiv.appendChild(headerDiv);
             categoryDiv.appendChild(contentUl);
             contentDiv.appendChild(categoryDiv);
+        }
+
+        // Embed Google Form if available for the project
+        if (googleForms[fileName]) {
+            const formDiv = document.createElement('div');
+            formDiv.classList.add('google-form');
+
+            const iframe = document.createElement('iframe');
+            iframe.src = googleForms[fileName];
+            iframe.width = '100%';
+            iframe.height = '1500px'; // Adjusted height to fit the form
+            iframe.frameBorder = '0';
+            iframe.marginHeight = '0';
+            iframe.marginWidth = '0';
+            iframe.style.border = 'none';
+            iframe.style.overflow = 'hidden'; // Prevent internal scrolling
+
+            formDiv.appendChild(iframe);
+            contentDiv.appendChild(formDiv);
         }
     }
 
