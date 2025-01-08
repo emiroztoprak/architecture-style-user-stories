@@ -10,17 +10,21 @@
             margin: 0;
             display: flex;
             min-height: 100vh;
-            background-color: #f5f5f5;
+            background-color: #f8f9fa; /* Light gray background */
         }
         h1, h2 {
             text-align: center;
-            color: #333;
+            color: #343a40; /* Dark gray for headings */
+        }
+        h2 {
+            margin-bottom: 0; /* Reduce spacing between h2 and links */
+            padding-bottom: 10px;
         }
         .sidebar {
             width: 250px;
-            background-color: #eee;
+            background-color: #e9ecef; /* Light gray sidebar */
             padding: 20px;
-            border-right: 1px solid #ddd;
+            border-right: 1px solid #ced4da; /* Subtle border */
             overflow-y: auto;
         }
         .main-content {
@@ -39,7 +43,7 @@
             display: block;
             padding: 8px 16px;
             margin-bottom: 10px;
-            background-color: #007bff;
+            background-color: #343a40; /* Dark background for links */
             color: #fff;
             text-decoration: none;
             border-radius: 5px;
@@ -47,23 +51,23 @@
             font-size: 1rem;
         }
         .nav-link:hover {
-            background-color: #0056b3;
+            background-color: #0056b3; /* Darker blue on hover */
         }
         .nav-link.active {
-            background-color: #0056b3;
+            background-color: #007bff; /* Primary blue for active link */
         }
         .category {
-            border: 1px solid #ccc;
+            border: 1px solid #ced4da; /* Light gray border */
             margin-bottom: 20px;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         .category-header {
-            background-color: #e9ecef;
+            background-color: #e9ecef; /* Light gray header */
             padding: 10px 15px;
             cursor: pointer;
-            border-bottom: 1px solid #ccc;
+            border-bottom: 1px solid #ced4da;
             user-select: none;
             font-weight: bold;
             display: flex;
@@ -89,6 +93,9 @@
         .page-title {
             margin-top: 0;
             padding-top: 20px;
+            font-size: 2rem; /* Increased font size */
+            font-weight: bold; /* Make title bold */
+            margin-bottom: 20px; /* Add some spacing below */
         }
         .hidden {
             display: none;
@@ -97,8 +104,8 @@
             text-align: center;
             margin-top: 30px;
             padding: 20px;
-            background-color: #eee;
-            border-top: 1px solid #ddd;
+            background-color: #e9ecef;
+            border-top: 1px solid #ced4da;
             font-size: 0.8rem;
             color: #666;
         }
@@ -120,7 +127,6 @@
             background-color: transparent; /* Remove background color */
             border: none; /* Remove border */
             box-shadow: none; /* Remove shadow */
-            /* Optional: Use Flexbox for alignment */
             display: flex;
             justify-content: center;
             align-items: flex-start;
