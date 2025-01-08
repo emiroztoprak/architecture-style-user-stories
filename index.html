@@ -147,7 +147,7 @@
     </div>
 
     <div class="main-content">
-        <h1 class="page-title">Categorized User Stories</h1>
+        <h1 class="page-title" id="mainTitle">Categorized User Stories</h1>
         <div class="container" id="content">
         </div>
     </div>
@@ -156,6 +156,7 @@
     const navContainer = document.getElementById('navigation');
     const contentContainer = document.getElementById('content');
     const fileLinksContainer = document.getElementById('fileLinks');
+    const mainTitle = document.getElementById('mainTitle');
 
     // Map of file names to project names
     const projectNames = {
@@ -242,6 +243,9 @@
         if (activeLink) {
             activeLink.classList.add('active');
         }
+
+        // Update the page title
+        mainTitle.textContent = `User Stories for ${projectNames[fileName]}`;
 
         // If the content div exists and has content, display it
         if (selectedContentDiv && selectedContentDiv.innerHTML.trim() !== '') {
