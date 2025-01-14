@@ -147,178 +147,262 @@
         }
     </style>
 </head>
+
 <body>
+    <button class="home-button" onclick="goHome()" title="Go to Home Page">
+        <i class="fas fa-home"></i>
+    </button>
     <div class="sidebar" id="navigation">
         <h2>Projects</h2>
         <div id="fileLinks"></div>
     </div>
 
     <div class="main-content">
-        <h1 class="page-title" id="mainTitle">Categorized User Stories</h1>
+        <h1 class="page-title" id="mainTitle"></h1>
         <div class="container" id="content">
-        </div>
+            <div id="home-content" class="content-page">
+                </div> </div>
     </div>
 
     <script>
-    const navContainer = document.getElementById('navigation');
-    const contentContainer = document.getElementById('content');
-    const fileLinksContainer = document.getElementById('fileLinks');
-    const mainTitle = document.getElementById('mainTitle');
+        const navContainer = document.getElementById('navigation');
+        const contentContainer = document.getElementById('content');
+        const fileLinksContainer = document.getElementById('fileLinks');
+        const mainTitle = document.getElementById('mainTitle');
 
-    // Map of file names to project names
-    const projectNames = {
-        'user_stories_recycling': 'Recycling Project',
-        'user_stories_federal_spending': 'Federal Spending Project',
-        'user_stories_planning_poker': 'Poker Planner Project',
-        'user_stories_scrum_alliance': 'Scrum Alliance Project',
-        'user_stories_open_spending': 'Open Spending Project'
-    };
+        // Map of file names to project names
+        const projectNames = {
+            'user_stories_recycling': 'Recycling Project',
+            'user_stories_federal_spending': 'Federal Spending Project',
+            'user_stories_planning_poker': 'Poker Planner Project',
+            'user_stories_scrum_alliance': 'Scrum Alliance Project',
+            'user_stories_open_spending': 'Open Spending Project'
+        };
 
-    // Map of file names to Google Form embed URLs
-    const googleForms = {
-        'user_stories_recycling': "https://docs.google.com/forms/d/e/1FAIpQLSeIh0r2-q7wH4-KgButqaa1Db8mlO55I0TGse7zDYtQ9yS5ZQ/viewform?embedded=true",
-        'user_stories_federal_spending': "https://docs.google.com/forms/d/e/1FAIpQLSfMtAfbURj--l131BgOvsC2tp-JugqHeC7iJaHMldjC-XIPSw/viewform?embedded=true",
-        'user_stories_planning_poker': "https://docs.google.com/forms/d/e/1FAIpQLScZ0h51sR51zsuGk0_l3ugya1Ys_NC4MFHpiSvgIYfruDwZ2w/viewform?embedded=true",
-        'user_stories_scrum_alliance': "https://docs.google.com/forms/d/e/1FAIpQLSdTsQU-FXrMnIJXkdSnImpe5VZlKPC-cNmfdsprrKEQA7B3yA/viewform?embedded=true",
-        'user_stories_open_spending': "https://docs.google.com/forms/d/e/1FAIpQLSfpr-K_5LEvpVnmxTZMycitDQg4VgjstihT9JeYgtDyGZW4zg/viewform?embedded=true"
-    };
+        // Map of file names to Google Form embed URLs
+        const googleForms = {
+            'user_stories_recycling': "https://docs.google.com/forms/d/e/1FAIpQLSeIh0r2-q7wH4-KgButqaa1Db8mlO55I0TGse7zDYtQ9yS5ZQ/viewform?embedded=true",
+            'user_stories_federal_spending': "https://docs.google.com/forms/d/e/1FAIpQLSfMtAfbURj--l131BgOvsC2tp-JugqHeC7iJaHMldjC-XIPSw/viewform?embedded=true",
+            'user_stories_planning_poker': "https://docs.google.com/forms/d/e/1FAIpQLScZ0h51sR51zsuGk0_l3ugya1Ys_NC4MFHpiSvgIYfruDwZ2w/viewform?embedded=true",
+            'user_stories_scrum_alliance': "https://docs.google.com/forms/d/e/1FAIpQLSdTsQU-FXrMnIJXkdSnImpe5VZlKPC-cNmfdsprrKEQA7B3yA/viewform?embedded=true",
+            'user_stories_open_spending': "https://docs.google.com/forms/d/e/1FAIpQLSfpr-K_5LEvpVnmxTZMycitDQg4VgjstihT9JeYgtDyGZW4zg/viewform?embedded=true"
+        };
 
-    function displayCategories(data, fileName) {
-        const contentDiv = document.getElementById(`${fileName}-content`);
-        if (!contentDiv) return;
+        function displayCategories(data, fileName) {
+            const contentDiv = document.getElementById(`${fileName}-content`);
+            if (!contentDiv) return;
 
-        contentDiv.innerHTML = ''; // Clear any existing content
+            contentDiv.innerHTML = ''; // Clear any existing content
 
-        for (const categoryName in data) {
-            const categoryDiv = document.createElement('div');
-            categoryDiv.classList.add('category');
+            for (const categoryName in data) {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.classList.add('category');
 
-            const headerDiv = document.createElement('div');
-            headerDiv.classList.add('category-header');
-            headerDiv.textContent = categoryName;
-            headerDiv.addEventListener('click', () => {
-                categoryDiv.classList.toggle('expanded');
+                const headerDiv = document.createElement('div');
+                headerDiv.classList.add('category-header');
+                headerDiv.textContent = categoryName;
+                headerDiv.addEventListener('click', () => {
+                    categoryDiv.classList.toggle('expanded');
+                });
+
+                const contentUl = document.createElement('ul');
+                contentUl.classList.add('category-content');
+                data[categoryName].forEach(story => {
+                    const storyLi = document.createElement('li');
+                    storyLi.textContent = story;
+                    contentUl.appendChild(storyLi);
+                });
+
+                categoryDiv.appendChild(headerDiv);
+                categoryDiv.appendChild(contentUl);
+                contentDiv.appendChild(categoryDiv);
+            }
+
+            // Embed Google Form if available for the project
+            if (googleForms[fileName]) {
+                const formDiv = document.createElement('div');
+                formDiv.classList.add('google-form');
+
+                const iframe = document.createElement('iframe');
+                iframe.src = googleForms[fileName];
+                iframe.width = '100%';
+                iframe.height = '1600px'; // Adjusted height to fit the form
+                iframe.frameBorder = '0';
+                iframe.marginHeight = '0';
+                iframe.marginWidth = '0';
+                iframe.style.border = 'none';
+                iframe.style.overflow = 'hidden'; // Prevent internal scrolling
+
+                formDiv.appendChild(iframe);
+                contentDiv.appendChild(formDiv);
+            }
+        }
+
+        function loadPage(fileName) {
+            // Hide the home page content
+            document.getElementById('home-content').classList.add('hidden');
+            const contentDivId = `${fileName}-content`;
+            let selectedContentDiv = document.getElementById(contentDivId);
+
+            // Hide all content pages
+            const contentDivs = document.querySelectorAll('.content-page');
+            contentDivs.forEach(div => div.classList.add('hidden'));
+
+            // Remove 'active' class from all nav links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+
+            // Add 'active' class to the clicked link
+            const activeLink = document.querySelector(`.nav-link[data-file="${fileName}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+
+            // Update the page title
+            mainTitle.textContent = `User Stories for ${projectNames[fileName]}`;
+
+            // If the content div exists and has content, display it
+            if (selectedContentDiv && selectedContentDiv.innerHTML.trim() !== '') {
+                selectedContentDiv.classList.remove('hidden');
+            } else {
+                // If not, fetch the JSON data and display it
+                fetch(`${fileName}.json`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (!selectedContentDiv) {
+                            selectedContentDiv = document.createElement('div');
+                            selectedContentDiv.id = contentDivId;
+                            selectedContentDiv.classList.add('content-page');
+                            contentContainer.appendChild(selectedContentDiv);
+                        } else {
+                            selectedContentDiv.innerHTML = ''; // Clear existing content
+                        }
+                        displayCategories(data, fileName);
+                        selectedContentDiv.classList.remove('hidden');
+                    })
+                    .catch(error => {
+                        console.error('Error loading data:', error);
+                        if (!selectedContentDiv) {
+                            selectedContentDiv = document.createElement('div');
+                            selectedContentDiv.id = contentDivId;
+                            selectedContentDiv.classList.add('content-page');
+                            contentContainer.appendChild(selectedContentDiv);
+                        }
+                        selectedContentDiv.innerHTML = '<p>Failed to load data.</p>';
+                        selectedContentDiv.classList.remove('hidden');
+                    });
+            }
+        }
+
+        // Function to initialize navigation and content
+        function initializePage() {
+            const fileNames = Object.keys(projectNames);
+
+            fileNames.forEach(fileName => {
+                const projectName = projectNames[fileName];
+                const link = document.createElement('a');
+                link.classList.add('nav-link');
+                link.href = `#${fileName}`;
+                link.setAttribute('data-file', fileName);
+                link.textContent = projectName;
+                fileLinksContainer.appendChild(link);
+
+                // Add event listener to the link
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    loadPage(fileName);
+                });
+            });
+        }
+
+        function goHome() {
+            // Show the home page content
+            document.getElementById('home-content').classList.remove('hidden');
+
+            // Hide all other project content pages
+            const contentDivs = document.querySelectorAll('.content-page');
+            contentDivs.forEach(div => {
+                if (div.id !== 'home-content') {
+                    div.classList.add('hidden');
+                }
             });
 
-            const contentUl = document.createElement('ul');
-            contentUl.classList.add('category-content');
-            data[categoryName].forEach(story => {
-                const storyLi = document.createElement('li');
-                storyLi.textContent = story;
-                contentUl.appendChild(storyLi);
-            });
+            // Remove 'active' class from all nav links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
 
-            categoryDiv.appendChild(headerDiv);
-            categoryDiv.appendChild(contentUl);
-            contentDiv.appendChild(categoryDiv);
+            // Reset the main title to the default
+            mainTitle.textContent = 'User Story Hub';
         }
 
-        // Embed Google Form if available for the project
-        if (googleForms[fileName]) {
-            const formDiv = document.createElement('div');
-            formDiv.classList.add('google-form');
-
-            const iframe = document.createElement('iframe');
-            iframe.src = googleForms[fileName];
-            iframe.width = '100%';
-            iframe.height = '1600px'; // Adjusted height to fit the form
-            iframe.frameBorder = '0';
-            iframe.marginHeight = '0';
-            iframe.marginWidth = '0';
-            iframe.style.border = 'none';
-            iframe.style.overflow = 'hidden'; // Prevent internal scrolling
-
-            formDiv.appendChild(iframe);
-            contentDiv.appendChild(formDiv);
-        }
-    }
-
-    function loadPage(fileName) {
-        const contentDivId = `${fileName}-content`;
-        let selectedContentDiv = document.getElementById(contentDivId);
-
-        // Hide all content pages
-        const contentDivs = document.querySelectorAll('.content-page');
-        contentDivs.forEach(div => div.classList.add('hidden'));
-
-        // Remove 'active' class from all nav links
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => link.classList.remove('active'));
-
-        // Add 'active' class to the clicked link
-        const activeLink = document.querySelector(`.nav-link[data-file="${fileName}"]`);
-        if (activeLink) {
-            activeLink.classList.add('active');
+        function loadFirstProject() {
+            const firstFileName = Object.keys(projectNames)[0];
+            loadPage(firstFileName);
         }
 
-        // Update the page title
-        mainTitle.textContent = `User Stories for ${projectNames[fileName]}`;
+        // New function to fetch and display architecture patterns
+        function displayArchitecturePatterns() {
+            const homeContentDiv = document.getElementById('home-content');
+            homeContentDiv.innerHTML = ''; // Clear existing content
 
-        // If the content div exists and has content, display it
-        if (selectedContentDiv && selectedContentDiv.innerHTML.trim() !== '') {
-            selectedContentDiv.classList.remove('hidden');
-        } else {
-            // If not, fetch the JSON data and display it
-            fetch(`${fileName}.json`)
+            // Create and display the welcome section
+            const homePageDiv = document.createElement('div');
+            homePageDiv.classList.add('home-page');
+            homePageDiv.innerHTML = `
+                <h1>Welcome to Our User Story Hub</h1>
+                <p>
+                    This platform is dedicated to showcasing how AI can be leveraged in <strong>Deciding on Architectural Styles when Creating Software Architectures.</strong>
+                    Explore the various projects to see categorized user stories, understand project requirements, and learn more about how AI plays a crucial role in modern software development.
+                </p>
+                <p>
+                    Each project is carefully curated to provide insights into the decision-making process behind software architecture choices.
+                    Dive into the user stories to get a better understanding of how AI can assist in creating robust and efficient software solutions.
+                </p>
+                <a href="#" class="start-button" onclick="loadFirstProject()">Get Started</a>
+            `;
+            homeContentDiv.appendChild(homePageDiv);
+
+            fetch('patterns.json')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! Status: ${response.status}`);
                     }
                     return response.json();
                 })
-                .then(data => {
-                    if (!selectedContentDiv) {
-                        selectedContentDiv = document.createElement('div');
-                        selectedContentDiv.id = contentDivId;
-                        selectedContentDiv.classList.add('content-page');
-                        contentContainer.appendChild(selectedContentDiv);
-                    } else {
-                        selectedContentDiv.innerHTML = ''; // Clear existing content
+                .then(patterns => {
+                    const patternsDiv = document.createElement('div');
+                    patternsDiv.classList.add('pattern-description');
+
+                    for (const patternName in patterns) {
+                        const pattern = patterns[patternName];
+
+                        const patternHeader = document.createElement('h3');
+                        patternHeader.textContent = patternName;
+                        patternsDiv.appendChild(patternHeader);
+
+                        const patternDesc = document.createElement('p');
+                        patternDesc.textContent = pattern.description;
+                        patternsDiv.appendChild(patternDesc);
                     }
-                    displayCategories(data, fileName);
-                    selectedContentDiv.classList.remove('hidden');
+
+                    homeContentDiv.appendChild(patternsDiv);
                 })
                 .catch(error => {
-                    console.error('Error loading data:', error);
-                    if (!selectedContentDiv) {
-                        selectedContentDiv = document.createElement('div');
-                        selectedContentDiv.id = contentDivId;
-                        selectedContentDiv.classList.add('content-page');
-                        contentContainer.appendChild(selectedContentDiv);
-                    }
-                    selectedContentDiv.innerHTML = '<p>Failed to load data.</p>';
-                    selectedContentDiv.classList.remove('hidden');
+                    console.error('Error loading architecture patterns:', error);
+                    homeContentDiv.innerHTML += '<p>Failed to load architecture patterns.</p>';
                 });
         }
-    }
 
-    // Function to initialize navigation and content
-    function initializePage() {
-        const fileNames = Object.keys(projectNames);
+        // Call the function to initialize the page
+        initializePage();
 
-        fileNames.forEach(fileName => {
-            const projectName = projectNames[fileName];
-            const link = document.createElement('a');
-            link.classList.add('nav-link');
-            link.href = `#${fileName}`;
-            link.setAttribute('data-file', fileName);
-            link.textContent = projectName;
-            fileLinksContainer.appendChild(link);
-
-            // Add event listener to the link
-            link.addEventListener('click', (event) => {
-                event.preventDefault();
-                loadPage(fileName);
-            });
-        });
-
-        if (fileNames.length > 0) {
-            loadPage(fileNames[0]);
-        }
-    }
-
-    // Call the function to initialize the page
-    initializePage();
+        // Display architecture patterns on home page load
+        displayArchitecturePatterns();
     </script>
 
 </body>
