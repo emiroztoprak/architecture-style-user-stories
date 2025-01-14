@@ -4,33 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Categorized User Stories</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
             font-family: sans-serif;
             margin: 0;
             display: flex;
             min-height: 100vh;
-            background-color: #f8f9fa; /* Light gray background */
+            background-color: #f8f9fa; 
         }
+
         h1, h2 {
             text-align: center;
-            color: #343a40; /* Dark gray for headings */
+            color: #343a40; 
         }
+
         h2 {
-            margin-bottom: 0; /* Reduce spacing between h2 and links */
+            margin-bottom: 0; 
             padding-bottom: 10px;
         }
+
         .sidebar {
             width: 250px;
-            background-color: #e9ecef; /* Light gray sidebar */
+            background-color: #e9ecef; 
             padding: 20px;
-            border-right: 1px solid #ced4da; /* Subtle border */
-            overflow-y: auto;
+            border-right: 1px solid #ced4da; 
+            overflow-y: auto; 
         }
+
         .main-content {
             flex-grow: 1;
             padding: 20px;
         }
+
         .container {
             max-width: 90%;
             margin: 20px auto;
@@ -39,32 +45,37 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
+
         .nav-link {
             display: block;
             padding: 8px 16px;
             margin-bottom: 10px;
-            background-color: #343a40; /* Dark background for links */
+            background-color: #343a40;
             color: #fff;
             text-decoration: none;
             border-radius: 5px;
             transition: background-color 0.3s ease;
             font-size: 1rem;
         }
+
         .nav-link:hover {
-            background-color: #0056b3; /* Darker blue on hover */
+            background-color: #0056b3; 
         }
+
         .nav-link.active {
-            background-color: #007bff; /* Primary blue for active link */
+            background-color: #007bff; 
         }
+
         .category {
-            border: 1px solid #ced4da; /* Light gray border */
+            border: 1px solid #ced4da; 
             margin-bottom: 20px;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
+
         .category-header {
-            background-color: #e9ecef; /* Light gray header */
+            background-color: #e9ecef;
             padding: 10px 15px;
             cursor: pointer;
             border-bottom: 1px solid #ced4da;
@@ -74,32 +85,39 @@
             align-items: center;
             justify-content: space-between;
         }
+
         .category-content {
             padding: 15px;
             display: none;
             line-height: 1.6;
         }
+
         .expanded .category-content{
             display: block;
         }
+
         ul {
             list-style-type: disc;
             padding-left: 40px;
             margin: 10px 0;
         }
+
         li {
             margin-bottom: 5px;
         }
+
         .page-title {
             margin-top: 0;
             padding-top: 20px;
-            font-size: 2rem; /* Increased font size */
-            font-weight: bold; /* Make title bold */
-            margin-bottom: 20px; /* Add some spacing below */
+            font-size: 2rem; 
+            font-weight: bold; 
+            margin-bottom: 20px; 
         }
+
         .hidden {
             display: none;
         }
+
         .footer {
             text-align: center;
             margin-top: 30px;
@@ -109,59 +127,84 @@
             font-size: 0.8rem;
             color: #666;
         }
-        /* Updated CSS for arrow rotation */
+
         .category-header::after {
-            content: '\25BC'; /* Down arrow */
+            content: '\25BC'; 
             font-size: 12px;
             color: #555;
             transition: transform 0.3s ease;
         }
+
         .expanded .category-header::after {
-            transform: rotate(180deg); /* Rotates arrow on expand */
-            content: '\25B2'; /* Up arrow */
+            transform: rotate(180deg); 
+            content: '\25B2'; 
         }
-        /* Styles for Embedded Google Forms */
+
         .google-form {
             margin-top: 30px;
-            padding: 0; /* Remove padding */
-            background-color: transparent; /* Remove background color */
-            border: none; /* Remove border */
-            box-shadow: none; /* Remove shadow */
+            padding: 0; 
+            background-color: transparent; 
+            border: none; 
+            box-shadow: none; 
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            overflow: hidden; /* Prevent internal scrolling */
+            overflow: hidden; 
         }
+
         .google-form iframe {
             width: 100%;
-            height: 1600px; /* Adjust height as needed */
+            height: 1600px; 
             border: none;
-            border-radius: 0; /* Remove border-radius */
-            overflow: hidden; /* Prevent internal scrolling */
+            border-radius: 0; 
+            overflow: hidden;
         }
-        /* Responsive Adjustments */
+
         @media (max-width: 768px) {
             .google-form iframe {
-                height: 2000px; /* Adjust for mobile if necessary */
+                height: 2000px; 
             }
+        }
+
+        .home-button {
+            position: fixed; 
+            top: 20px; 
+            left: 20px; 
+            background-color: #007bff; 
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 10; 
+        }
+
+        .home-button:hover {
+            background-color: #0056b3;
+        }
+
+        .home-button i {
+            font-size: 1.2rem; 
         }
     </style>
 </head>
 
 <body>
     <button class="home-button" onclick="goHome()" title="Go to Home Page">
-        <i class="fas fa-home"></i>
+        <i class="fas fa-home"></i> 
     </button>
+
     <div class="sidebar" id="navigation">
         <h2>Projects</h2>
         <div id="fileLinks"></div>
     </div>
 
     <div class="main-content">
-        <h1 class="page-title" id="mainTitle"></h1>
+        <h1 class="page-title" id="mainTitle">User Story Hub</h1> 
         <div class="container" id="content">
             <div id="home-content" class="content-page">
-                </div> </div>
+            </div> 
+        </div>
     </div>
 
     <script>
@@ -170,7 +213,6 @@
         const fileLinksContainer = document.getElementById('fileLinks');
         const mainTitle = document.getElementById('mainTitle');
 
-        // Map of file names to project names
         const projectNames = {
             'user_stories_recycling': 'Recycling Project',
             'user_stories_federal_spending': 'Federal Spending Project',
@@ -179,7 +221,6 @@
             'user_stories_open_spending': 'Open Spending Project'
         };
 
-        // Map of file names to Google Form embed URLs
         const googleForms = {
             'user_stories_recycling': "https://docs.google.com/forms/d/e/1FAIpQLSeIh0r2-q7wH4-KgButqaa1Db8mlO55I0TGse7zDYtQ9yS5ZQ/viewform?embedded=true",
             'user_stories_federal_spending': "https://docs.google.com/forms/d/e/1FAIpQLSfMtAfbURj--l131BgOvsC2tp-JugqHeC7iJaHMldjC-XIPSw/viewform?embedded=true",
@@ -192,7 +233,7 @@
             const contentDiv = document.getElementById(`${fileName}-content`);
             if (!contentDiv) return;
 
-            contentDiv.innerHTML = ''; // Clear any existing content
+            contentDiv.innerHTML = ''; 
 
             for (const categoryName in data) {
                 const categoryDiv = document.createElement('div');
@@ -218,7 +259,6 @@
                 contentDiv.appendChild(categoryDiv);
             }
 
-            // Embed Google Form if available for the project
             if (googleForms[fileName]) {
                 const formDiv = document.createElement('div');
                 formDiv.classList.add('google-form');
@@ -226,12 +266,12 @@
                 const iframe = document.createElement('iframe');
                 iframe.src = googleForms[fileName];
                 iframe.width = '100%';
-                iframe.height = '1600px'; // Adjusted height to fit the form
+                iframe.height = '1600px'; 
                 iframe.frameBorder = '0';
                 iframe.marginHeight = '0';
                 iframe.marginWidth = '0';
                 iframe.style.border = 'none';
-                iframe.style.overflow = 'hidden'; // Prevent internal scrolling
+                iframe.style.overflow = 'hidden'; 
 
                 formDiv.appendChild(iframe);
                 contentDiv.appendChild(formDiv);
@@ -239,33 +279,26 @@
         }
 
         function loadPage(fileName) {
-            // Hide the home page content
             document.getElementById('home-content').classList.add('hidden');
             const contentDivId = `${fileName}-content`;
             let selectedContentDiv = document.getElementById(contentDivId);
 
-            // Hide all content pages
             const contentDivs = document.querySelectorAll('.content-page');
             contentDivs.forEach(div => div.classList.add('hidden'));
 
-            // Remove 'active' class from all nav links
             const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => link.classList.remove('active'));
 
-            // Add 'active' class to the clicked link
             const activeLink = document.querySelector(`.nav-link[data-file="${fileName}"]`);
             if (activeLink) {
                 activeLink.classList.add('active');
             }
 
-            // Update the page title
             mainTitle.textContent = `User Stories for ${projectNames[fileName]}`;
 
-            // If the content div exists and has content, display it
             if (selectedContentDiv && selectedContentDiv.innerHTML.trim() !== '') {
                 selectedContentDiv.classList.remove('hidden');
             } else {
-                // If not, fetch the JSON data and display it
                 fetch(`${fileName}.json`)
                     .then(response => {
                         if (!response.ok) {
@@ -280,7 +313,7 @@
                             selectedContentDiv.classList.add('content-page');
                             contentContainer.appendChild(selectedContentDiv);
                         } else {
-                            selectedContentDiv.innerHTML = ''; // Clear existing content
+                            selectedContentDiv.innerHTML = ''; 
                         }
                         displayCategories(data, fileName);
                         selectedContentDiv.classList.remove('hidden');
@@ -299,7 +332,7 @@
             }
         }
 
-        // Function to initialize navigation and content
+
         function initializePage() {
             const fileNames = Object.keys(projectNames);
 
@@ -312,7 +345,6 @@
                 link.textContent = projectName;
                 fileLinksContainer.appendChild(link);
 
-                // Add event listener to the link
                 link.addEventListener('click', (event) => {
                     event.preventDefault();
                     loadPage(fileName);
@@ -321,10 +353,8 @@
         }
 
         function goHome() {
-            // Show the home page content
             document.getElementById('home-content').classList.remove('hidden');
 
-            // Hide all other project content pages
             const contentDivs = document.querySelectorAll('.content-page');
             contentDivs.forEach(div => {
                 if (div.id !== 'home-content') {
@@ -332,12 +362,10 @@
                 }
             });
 
-            // Remove 'active' class from all nav links
             const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => link.classList.remove('active'));
 
-            // Reset the main title to the default
-            mainTitle.textContent = 'User Story Hub';
+            mainTitle.textContent = 'User Story Hub'; 
         }
 
         function loadFirstProject() {
@@ -345,12 +373,10 @@
             loadPage(firstFileName);
         }
 
-        // New function to fetch and display architecture patterns
         function displayArchitecturePatterns() {
             const homeContentDiv = document.getElementById('home-content');
-            homeContentDiv.innerHTML = ''; // Clear existing content
+            homeContentDiv.innerHTML = ''; 
 
-            // Create and display the welcome section
             const homePageDiv = document.createElement('div');
             homePageDiv.classList.add('home-page');
             homePageDiv.innerHTML = `
@@ -363,7 +389,7 @@
                     Each project is carefully curated to provide insights into the decision-making process behind software architecture choices.
                     Dive into the user stories to get a better understanding of how AI can assist in creating robust and efficient software solutions.
                 </p>
-                <a href="#" class="start-button" onclick="loadFirstProject()">Get Started</a>
+                <a href="#" class="start-button" onclick="loadFirstProject()">Get Started</a> 
             `;
             homeContentDiv.appendChild(homePageDiv);
 
@@ -398,12 +424,9 @@
                 });
         }
 
-        // Call the function to initialize the page
         initializePage();
 
-        // Display architecture patterns on home page load
         displayArchitecturePatterns();
     </script>
-
 </body>
 </html>
