@@ -15,14 +15,20 @@
             overflow-x: hidden;
         }
 
-        h1, h2 {
-            text-align: center;
+        h1, h2, h3 {
             color: #343a40;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            text-align: center;
         }
 
         h2 {
-            margin-bottom: 0;
-            padding-bottom: 10px;
+            margin-bottom: 10px;
+            text-align: center;
         }
 
         .sidebar {
@@ -112,15 +118,7 @@
             padding: 10px;
             border-radius: 5px;
             white-space: pre-wrap; /* Preserve line breaks and spaces */
-        }
-
-        /* Style for the description tab */
-        .description-tab {
-            margin-top: 10px; 
-            border: 1px solid #dee2e6; /* Light gray border */
-            padding: 10px;
-            border-radius: 5px;
-            white-space: pre-wrap; /* Preserve line breaks and spaces */
+            margin-bottom: 20px;
         }
 
         .expanded .category-content {
@@ -143,6 +141,7 @@
             font-size: 2rem;
             font-weight: bold;
             margin-bottom: 20px;
+            text-align: center;
         }
 
         .hidden {
@@ -271,10 +270,11 @@
     </div>
 
     <div class="main-content">
+        <!-- This is just a big page title area -->
         <h1 class="page-title" id="mainTitle">User Story Hub</h1>
+
         <div class="container" id="content">
-            <div id="home-content" class="content-page">
-            </div>
+            <div id="home-content" class="content-page"></div>
         </div>
     </div>
 
@@ -284,6 +284,7 @@
         const fileLinksContainer = document.getElementById('fileLinks');
         const mainTitle = document.getElementById('mainTitle');
 
+        // Map of JSON filenames to project titles
         const projectNames = {
             'user_stories_recycling': 'Recycling Project',
             'user_stories_federal_spending': 'Federal Spending Project',
@@ -292,6 +293,7 @@
             'user_stories_open_spending': 'Open Spending Project'
         };
 
+        // Map of JSON filenames to their embedded Google Form
         const googleForms = {
             'user_stories_recycling': "https://docs.google.com/forms/d/e/1FAIpQLSeIh0r2-q7wH4-KgButqaa1Db8mlO55I0TGse7zDYtQ9yS5ZQ/viewform?embedded=true",
             'user_stories_federal_spending': "https://docs.google.com/forms/d/e/1FAIpQLSfMtAfbURj--l131BgOvsC2tp-JugqHeC7iJaHMldjC-XIPSw/viewform?embedded=true",
@@ -300,12 +302,22 @@
             'user_stories_open_spending': "https://docs.google.com/forms/d/e/1FAIpQLSfpr-K_5LEvpVnmxTZMycitDQg4VgjstihT9JeYgtDyGZW4zg/viewform?embedded=true"
         };
 
+        /**
+         * Build and display the user stories/categories on the page.
+         */
         function displayCategories(data, fileName) {
             const contentDiv = document.getElementById(`${fileName}-content`);
             if (!contentDiv) return;
 
+            // Clear out old content
             contentDiv.innerHTML = ''; 
 
+            // 1) Large Title (Project Name)
+            const projectTitle = document.createElement('h1');
+            projectTitle.textContent = projectNames[fileName];
+            contentDiv.appendChild(projectTitle);
+
+            // 2) Description (if any)
             if (data.description) {
                 const descriptionDiv = document.createElement('div');
                 descriptionDiv.classList.add('description-tab');
@@ -313,8 +325,16 @@
                 contentDiv.appendChild(descriptionDiv);
             }
 
+            // 3) Smaller Title for "Categorized User Stories"
+            const catTitle = document.createElement('h2');
+            catTitle.textContent = 'Categorized User Stories';
+            contentDiv.appendChild(catTitle);
+
+            // 4) Loop over categories and build the user stories
             for (const categoryName in data) {
+                // Skip 'description'
                 if (categoryName === "description") continue;
+
                 const categoryDiv = document.createElement('div');
                 categoryDiv.classList.add('category');
 
@@ -338,6 +358,7 @@
                 contentDiv.appendChild(categoryDiv);
             }
 
+            // 5) Add the Google Form (if any)
             if (googleForms[fileName]) {
                 const formDiv = document.createElement('div');
                 formDiv.classList.add('google-form');
@@ -357,27 +378,39 @@
             }
         }
 
+        /**
+         * Loads a specific page (project) by filename (JSON).
+         */
         function loadPage(fileName) {
+            // Hide the home content
             document.getElementById('home-content').classList.add('hidden');
+
+            // Construct the ID for the project's content container
             const contentDivId = `${fileName}-content`;
             let selectedContentDiv = document.getElementById(contentDivId);
 
+            // Hide all other content pages
             const contentDivs = document.querySelectorAll('.content-page');
             contentDivs.forEach(div => div.classList.add('hidden'));
 
+            // Remove 'active' from all nav links
             const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => link.classList.remove('active'));
 
+            // Mark the clicked link as active
             const activeLink = document.querySelector(`.nav-link[data-file="${fileName}"]`);
             if (activeLink) {
                 activeLink.classList.add('active');
             }
 
-            mainTitle.textContent = `User Stories for ${projectNames[fileName]}`;
+            // Set the mainTitle to the project's name (top area)
+            mainTitle.textContent = projectNames[fileName];
 
+            // If we've already loaded this content, just show it
             if (selectedContentDiv && selectedContentDiv.innerHTML.trim() !== '') {
                 selectedContentDiv.classList.remove('hidden');
             } else {
+                // Otherwise, fetch the JSON data and display
                 fetch(`${fileName}.json`)
                     .then(response => {
                         if (!response.ok) {
@@ -386,14 +419,17 @@
                         return response.json();
                     })
                     .then(data => {
+                        // Create the content container if it doesn't exist yet
                         if (!selectedContentDiv) {
                             selectedContentDiv = document.createElement('div');
                             selectedContentDiv.id = contentDivId;
                             selectedContentDiv.classList.add('content-page');
                             contentContainer.appendChild(selectedContentDiv);
                         } else {
+                            // Clear old content
                             selectedContentDiv.innerHTML = ''; 
                         }
+                        // Build the categories/user stories
                         displayCategories(data, fileName);
                         selectedContentDiv.classList.remove('hidden');
                     })
@@ -411,7 +447,9 @@
             }
         }
 
-
+        /**
+         * Initialize the navigation links for each project.
+         */
         function initializePage() {
             const fileNames = Object.keys(projectNames);
 
@@ -431,6 +469,9 @@
             });
         }
 
+        /**
+         * Return to Home content view, hide all project-specific content.
+         */
         function goHome() {
             document.getElementById('home-content').classList.remove('hidden');
 
@@ -447,11 +488,9 @@
             mainTitle.textContent = 'User Story Hub'; 
         }
 
-        function loadFirstProject() {
-            const firstFileName = Object.keys(projectNames)[0];
-            loadPage(firstFileName);
-        }
-
+        /**
+         * Dynamically load the architectural patterns on the home page (if 'patterns.json' is available).
+         */
         function displayArchitecturePatterns() {
             const homeContentDiv = document.getElementById('home-content');
             homeContentDiv.innerHTML = ''; 
@@ -502,8 +541,10 @@
                 });
         }
 
+        // Initialize the page navigation
         initializePage();
 
+        // Display the architecture patterns on the home page by default
         displayArchitecturePatterns();
     </script>
 </body>
