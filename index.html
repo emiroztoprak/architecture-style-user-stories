@@ -173,7 +173,7 @@
     }
     .google-form iframe {
       width: 150%;
-      height: 1600px;
+      height: 2000px;
       border: none;
       border-radius: 0;
       overflow: hidden;
@@ -237,8 +237,26 @@
         width: 100%;
       }
       .home-button {
+        position: fixed;
+        top: 20px;
         left: 20px;
-      }
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        z-index: 1001;
+        }
+
+        /* Update the sidebar title positioning */
+        .sidebar h2 {
+        text-align: center;
+        margin-top: 50px; /* Space for the home button */
+        margin-bottom: 20px;
+        padding: 0 20px;
+        }
+
     }
   </style>
 </head>
@@ -274,24 +292,36 @@
     // Map: JSON filename -> Project Title
     const projectNames = {
       'user_stories_recycling': 'Recycling Project',
-      'user_stories_federal_spending': 'Federal Spending Project',
+      'user_stories_federal_spending': 'Federal Spending Transparency Project',
       'user_stories_planning_poker': 'Poker Planner Project',
       'user_stories_scrum_alliance': 'Scrum Alliance Project',
-      'user_stories_open_spending': 'Open Spending Project'
+      'user_stories_open_spending': 'Open Spending Project',
+      'user_stories_archives_space': 'Archives Space Project',
+      'user_stories_bad_camp': 'BADCamp Project',
+      'user_stories_dura_space': 'DuraSpace Project',
+      'user_stories_neurohub': 'NeuroHub Project',
     };
 
     // Map: JSON filename -> Google Form embed link
     const googleForms = {
       'user_stories_recycling':
-        "https://docs.google.com/forms/d/e/1FAIpQLSeIh0r2-q7wH4-KgButqaa1Db8mlO55I0TGse7zDYtQ9yS5ZQ/viewform?embedded=true",
+        "https://docs.google.com/forms/d/e/1FAIpQLSeQ53UVfbc37K75E3tVSZLBQwn09G4bV6zXhmOoAFGAGQwoWA/viewform?embedded=true",
       'user_stories_federal_spending':
         "https://docs.google.com/forms/d/e/1FAIpQLSfMtAfbURj--l131BgOvsC2tp-JugqHeC7iJaHMldjC-XIPSw/viewform?embedded=true",
       'user_stories_planning_poker':
-        "https://docs.google.com/forms/d/e/1FAIpQLScZ0h51sR51zsuGk0_l3ugya1Ys_NC4MFHpiSvgIYfruDwZ2w/viewform?embedded=true",
+         "https://docs.google.com/forms/d/e/1FAIpQLSeFHQDxrDjXItKOkqRsU56r_r-7dWOVFFsGxH1W2cCqdGRrJw/viewform?embedded=true",
       'user_stories_scrum_alliance':
-        "https://docs.google.com/forms/d/e/1FAIpQLSdTsQU-FXrMnIJXkdSnImpe5VZlKPC-cNmfdsprrKEQA7B3yA/viewform?embedded=true",
+          "https://docs.google.com/forms/d/e/1FAIpQLSe2d1GNLIRJu8ML48FqWtwJ4DvpE_qEU2iAn-aaEg36COaDUQ/viewform?embedded=true",
       'user_stories_open_spending':
-        "https://docs.google.com/forms/d/e/1FAIpQLSfpr-K_5LEvpVnmxTZMycitDQg4VgjstihT9JeYgtDyGZW4zg/viewform?embedded=true"
+         "https://docs.google.com/forms/d/e/1FAIpQLScyHJlsKtG0WKo1YJvAGQfUe1_n20MAsyypz1HpkzFDIJyr_Q/viewform?embedded=true",
+    'user_stories_archives_space':
+        "https://docs.google.com/forms/d/e/1FAIpQLSeVApbbBsSP3U5w3EpPihf8bqeJgsBpJ5WBxnGtW-LwRoPKgw/viewform?embedded=true",
+      'user_stories_bad_camp':
+      "https://docs.google.com/forms/d/e/1FAIpQLSeuwKrWnpkBYpu99K5ChENoDEgReMTxfBJNNmULTjdmpmRL3A/viewform?embedded=true",
+      'user_stories_dura_space':
+      "https://docs.google.com/forms/d/e/1FAIpQLSfMdGl6NpF2s-euqO0watjoa-td022F4Hw8Pcz1DlwqBq4N9Q/viewform?embedded=true",
+      'user_stories_neurohub':
+      "https://docs.google.com/forms/d/e/1FAIpQLScYop1MFSU3TGqb7OmmW5hfQ7sS43Hb5PCPzSGmbcPAuqC_ug/viewform?embedded=true",
     };
 
     /**
@@ -361,7 +391,7 @@
         const iframe = document.createElement('iframe');
         iframe.src = googleForms[fileName];
         iframe.width = '150%';
-        iframe.height = '1600px';
+        iframe.height = '2000px';
         iframe.frameBorder = '0';
         iframe.marginHeight = '0';
         iframe.marginWidth = '0';
