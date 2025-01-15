@@ -1,5 +1,5 @@
 {
-    "description": "This collection originates from the development of the Data Dictionary Supplement component for DuraSpace's Data Asset Management System (DAMS), an open-source project (BSD 3.0) that stores, preserves, and disseminates digital cultural heritage content by supporting ingestion, management, access, and long-term preservation of digital objects.",
+    "description": "This collection originates from the development of the Data Dictionary Supplement component for DuraSpace's Data Asset Management System (DAMS), an open-source project that stores, preserves, and disseminates digital cultural heritage content by supporting ingestion, management, access, and long-term preservation of digital objects.",
     "Usability & Accessibility": [
       "As a user, I want to list all the collections and objects in the DAMS that belong to a library unit.",
       "As a user, I want to be able to contact repositories.",
