@@ -1,4 +1,5 @@
 {
+    "description": "ArchivesSpace is an open-source web application designed to support core archival functions, such as accessioning, describing and arranging materials, managing authorities and rights, and providing reference services, all while supporting collection management through dedicated records, event tracking, and administrative reports.",
     "Usability & Accessibility": [
       "As an Archivist, I want to see Dates and Extents displayed in both the read and edit views for Accessions and/or Resources before the list of Subjects.",
       "As an Archivist, I want to rearrange the Resource and/or Digital Object hierarchy using keyboard-based navigation.",
