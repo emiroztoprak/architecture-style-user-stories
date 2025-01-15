@@ -1,4 +1,5 @@
 {
+    "description": "This set of user stories originates from the GitHub repository of the BADCamp event website, an annual conference celebrating Drupal open source websites, where the website serves as both a general information source and a supportive tool for attendees.",
     "Usability & Accessibility": [
       "As an anonymous user, I want to view a list of sponsors, so that I can thank all the awesome sponsors.",
       "As an anonymous user, I want to view a list of user profiles, so that I know who is attending the conference.",

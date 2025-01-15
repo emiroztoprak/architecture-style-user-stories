@@ -1,4 +1,5 @@
 {
+    "description": "These user stories concern the NeuroHub platform, a neuroscience data management, analysis, and collaboration platform enabling researchers to collect, store, and share data with colleagues and the wider research community.",
     "Usability & Accessibility": [
       "As a user, I want to navigate forwards and backwards between log books and log book pages without having to use my browser's back button.",
       "As a researcher, I want to create a log book page for an experiment and attach a file to this page.",
@@ -117,4 +118,3 @@
         "As a researcher, I want to have the ability to store all the inputs for an experiment so that the provenance of the results can be verified."
     ]
   }
-  
