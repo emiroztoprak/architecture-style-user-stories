@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,9 +49,9 @@
       z-index: 1000;
     }
     .sidebar h2 {
-        margin-top: 60px;    /* Enough space so it doesn't overlap the home button */
-        text-align: center;  /* Center text horizontally */
-        margin-bottom: 20px; /* Optional: add a bit more space below */
+      margin-top: 60px;    /* Enough space so it doesn't overlap the home button */
+      text-align: center;  /* Center text horizontally */
+      margin-bottom: 20px; /* Optional: add a bit more space below */
     }
 
     .main-content {
@@ -199,29 +200,24 @@
       font-size: 1.2rem;
     }
 
+    /* Info button is now in the sidebar, so remove absolute positioning. */
     .info-button {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        background-color: #007bff;
-        color: white;
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        border: none;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold;
-        font-family: serif;
-        font-style: italic;
-        font-size: 18px;
-        z-index: 1001;
+      background-color: #007bff;
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: block;
+      margin: 0 auto 20px auto; /* Center horizontally, space below */
+      font-weight: bold;
+      font-family: serif;
+      font-style: italic;
+      font-size: 18px;
     }
-    
     .info-button:hover {
-        background-color: #0056b3;
+      background-color: #0056b3;
     }
 
     #info-content {
@@ -313,28 +309,24 @@
         margin-bottom: 20px;
         padding: 0 20px;
       }
-
-      .info-button {
-        top: 20px;
-        right: 20px;
-      }
     }
   </style>
 </head>
 
 <body>
+  <!-- HOME BUTTON -->
   <button class="home-button" onclick="goHome()" title="Go to Home Page">
     <i class="fas fa-home"></i>
-  </button>
-
-  <button class="info-button" onclick="showInfo()" title="Show Information">
-    i
   </button>
 
   <!-- LEFT SIDEBAR -->
   <div class="sidebar" id="navigation">
     <h2>Projects</h2>
     <div id="fileLinks"></div>
+    <!-- Info button moved here -->
+    <button class="info-button" onclick="showInfo()" title="Show Information">
+      i
+    </button>
   </div>
 
   <!-- MAIN CONTENT AREA -->
@@ -348,7 +340,7 @@
     </div>
   </div>
 
-  <!-- Add new info page content -->
+  <!-- INFO PAGE CONTENT (Hidden by default) -->
   <div id="info-content" class="content-page hidden">
     <h1 class="page-title">About Architecture Patterns</h1>
     
@@ -410,7 +402,7 @@
         "https://docs.google.com/forms/d/e/1FAIpQLSeuwKrWnpkBYpu99K5ChENoDEgReMTxfBJNNmULTjdmpmRL3A/viewform?embedded=true",
       'user_stories_dura_space':
         "https://docs.google.com/forms/d/e/1FAIpQLSfMdGl6NpF2s-euqO0watjoa-td022F4Hw8Pcz1DlwqBq4N9Q/viewform?embedded=true",
-        'user_stories_neurohub':
+      'user_stories_neurohub':
         "https://docs.google.com/forms/d/e/1FAIpQLScYop1MFSU3TGqb7OmmW5hfQ7sS43Hb5PCPzSGmbcPAuqC_ug/viewform?embedded=true",
     };
 
@@ -536,45 +528,46 @@
     }
 
     function showInfo() {
-        document.getElementById('home-content').classList.add('hidden');
-        const contentDivs = document.querySelectorAll('.content-page');
-        contentDivs.forEach(div => {
-            if (div.id !== 'info-content') {
-                div.classList.add('hidden');
-            }
-        });
+      document.getElementById('home-content').classList.add('hidden');
+      const contentDivs = document.querySelectorAll('.content-page');
+      contentDivs.forEach(div => {
+          if (div.id !== 'info-content') {
+              div.classList.add('hidden');
+          }
+      });
 
-        document.getElementById('info-content').classList.remove('hidden');
-        mainTitle.textContent = 'Architecture Pattern Information';
+      document.getElementById('info-content').classList.remove('hidden');
+      mainTitle.textContent = 'Architecture Pattern Information';
 
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => link.classList.remove('active'));
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(link => link.classList.remove('active'));
 
-        loadPatternsForInfo();
+      loadPatternsForInfo();
     }
 
     function loadPatternsForInfo() {
-        const patternsContainer = document.getElementById('patterns-list');
-        if (!patternsContainer.children.length) {
-            fetch('patterns.json')
-                .then(response => response.json())
-                .then(patterns => {
-                    for (const patternName in patterns) {
-                        const pattern = patterns[patternName];
-                        const patternDiv = document.createElement('div');
-                        patternDiv.classList.add('pattern-box');
-                        patternDiv.innerHTML = `
-                            <h3>${patternName}</h3>
-                            <p>${pattern.description}</p>
-                        `;
-                        patternsContainer.appendChild(patternDiv);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error loading patterns:', error);
-                    patternsContainer.innerHTML = '<p>Failed to load architecture patterns.</p>';
-                });
-        }
+      const patternsContainer = document.getElementById('patterns-list');
+      // Only load once
+      if (!patternsContainer.children.length) {
+        fetch('patterns.json')
+          .then(response => response.json())
+          .then(patterns => {
+            for (const patternName in patterns) {
+              const pattern = patterns[patternName];
+              const patternDiv = document.createElement('div');
+              patternDiv.classList.add('pattern-box');
+              patternDiv.innerHTML = `
+                <h3>${patternName}</h3>
+                <p>${pattern.description}</p>
+              `;
+              patternsContainer.appendChild(patternDiv);
+            }
+          })
+          .catch(error => {
+            console.error('Error loading patterns:', error);
+            patternsContainer.innerHTML = '<p>Failed to load architecture patterns.</p>';
+          });
+      }
     }
 
     function initializePage() {
@@ -614,22 +607,25 @@
     }
 
     function displayArchitecturePatterns() {
-        const homeContentDiv = document.getElementById('home-content');
-        homeContentDiv.innerHTML = `
-            <div class="home-page">
-                <h1>Welcome to Our User Story Hub</h1>
-                <p>
-                    Explore different projects and their user stories to understand how various software architecture patterns can be applied. Each project includes descriptions and categorized user stories that help inform architectural decisions.
-                </p>
-                <p>
-                    To learn more about the available architecture patterns and scoring system, click the <strong>info button (i)</strong> in the top right corner of the sidebar or <a href="#" onclick="showInfo(); return false;">click here</a>.
-                </p>
-            </div>
-        `;
+      const homeContentDiv = document.getElementById('home-content');
+      homeContentDiv.innerHTML = `
+        <div class="home-page">
+            <h1>Welcome to Our User Story Hub</h1>
+            <p>
+                Explore different projects and their user stories to understand how various software architecture patterns can be applied. Each project includes descriptions and categorized user stories that help inform architectural decisions.
+            </p>
+            <p>
+                To learn more about the available architecture patterns and scoring system, click the <strong>i</strong> button in the sidebar or 
+                <a href="#" onclick="showInfo(); return false;">click here</a>.
+            </p>
+        </div>
+      `;
     }
 
+    // Initialize the sidebar links and display the home content
     initializePage();
     displayArchitecturePatterns();
   </script>
 </body>
 </html>
+```
