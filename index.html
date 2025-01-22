@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,6 +23,7 @@
       margin: 0;
       padding: 0;
     }
+
     h1.page-title {
       margin-top: 0;
       padding-top: 20px;
@@ -32,12 +32,16 @@
       margin-bottom: 20px;
       text-align: center;
     }
+
     h2 {
       margin-bottom: 10px;
     }
 
+    /* SIDEBAR */
     .sidebar {
       position: fixed;
+      top: 0;
+      left: 0;
       width: 300px;
       height: 100vh;
       background-color: #e9ecef;
@@ -47,32 +51,52 @@
       box-sizing: border-box;
       flex-shrink: 0;
       z-index: 1000;
+
+      display: flex;
+      flex-direction: column;
     }
+
+    /* Container for top buttons (Home & Info) in the sidebar */
+    .top-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    /* HOME & INFO BUTTONS */
+    .home-button,
+    .info-button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 12px;
+      font-size: 1rem;
+    }
+
+    .home-button i {
+      font-size: 1.2rem;
+      margin-right: 4px;
+    }
+
+    .home-button:hover,
+    .info-button:hover {
+      background-color: #0056b3;
+    }
+
+    /* PROJECTS HEADING */
     .sidebar h2 {
-      margin-top: 60px;    /* Enough space so it doesn't overlap the home button */
-      text-align: center;  /* Center text horizontally */
-      margin-bottom: 20px; /* Optional: add a bit more space below */
+      text-align: center;
+      margin-bottom: 20px;
     }
 
-    .main-content {
-      margin-left: 300px;
-      flex-grow: 1;
-      padding: 20px;
-      width: calc(100% - 250px);
-      box-sizing: border-box;
-      min-width: 0;
-    }
-
-    .container {
-      max-width: calc(100% - 40px);
-      margin: 20px auto;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      box-sizing: border-box;
-    }
-
+    /* NAV LINK STYLING */
     .nav-link {
       display: block;
       padding: 8px 16px;
@@ -94,6 +118,26 @@
       background-color: #007bff;
     }
 
+    /* MAIN CONTENT */
+    .main-content {
+      margin-left: 300px; /* space for sidebar */
+      flex-grow: 1;
+      padding: 20px;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
+    .container {
+      max-width: calc(100% - 40px);
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      box-sizing: border-box;
+    }
+
+    /* CATEGORY ACCORDION STYLING */
     .category {
       border: 1px solid #ced4da;
       margin-bottom: 20px;
@@ -122,7 +166,6 @@
       transform: rotate(180deg);
       content: '\25B2'; /* Up arrow */
     }
-
     .category-content {
       padding: 15px;
       display: none;
@@ -131,7 +174,6 @@
     .expanded .category-content {
       display: block;
     }
-
     ul {
       list-style-type: disc;
       padding-left: 40px;
@@ -141,7 +183,7 @@
       margin-bottom: 5px;
     }
 
-    /* Make the description more stylish with a gray background, italic text, etc. */
+    /* DESCRIPTION STYLING */
     .description-heading {
       margin-top: 0;
       margin-bottom: 8px;
@@ -150,18 +192,19 @@
       color: #495057;
     }
     .description-tab {
-      margin-top: 0; 
+      margin-top: 0;
       border: 1px solid #ced4da;
       padding: 15px;
       border-radius: 5px;
       white-space: pre-wrap;
       margin-bottom: 20px;
-      background-color: #f1f3f5; /* Soft gray background */
+      background-color: #f1f3f5;
       color: #495057;
       font-style: italic;
       line-height: 1.5;
     }
 
+    /* GOOGLE FORM EMBED */
     .google-form {
       margin-top: 30px;
       padding: 0;
@@ -181,76 +224,7 @@
       overflow: hidden;
     }
 
-    .home-button {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      background-color: #007bff;
-      color: white;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      z-index: 1001;
-    }
-    .home-button:hover {
-      background-color: #0056b3;
-    }
-    .home-button i {
-      font-size: 1.2rem;
-    }
-
-    /* Info button is now in the sidebar, so remove absolute positioning. */
-    .info-button {
-      background-color: #007bff;
-      color: white;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      border: none;
-      cursor: pointer;
-      display: block;
-      margin: 0 auto 20px auto; /* Center horizontally, space below */
-      font-weight: bold;
-      font-family: serif;
-      font-style: italic;
-      font-size: 18px;
-    }
-    .info-button:hover {
-      background-color: #0056b3;
-    }
-
-    #info-content {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-    }
-
-    #info-content h2 {
-        color: #343a40;
-        margin-top: 30px;
-        margin-bottom: 15px;
-    }
-
-    #info-content p {
-        line-height: 1.6;
-        margin-bottom: 15px;
-    }
-
-    .pattern-box {
-        background-color: #f8f9fa;
-        border: 1px solid #dee2e6;
-        border-radius: 5px;
-        padding: 15px;
-        margin-bottom: 20px;
-    }
-
-    .pattern-box h3 {
-        color: #495057;
-        margin-top: 0;
-        margin-bottom: 10px;
-    }
-
+    /* HOME CONTENT */
     .home-page {
       padding: 20px;
     }
@@ -266,18 +240,44 @@
     .start-button:hover {
       background-color: #0056b3;
     }
-
     .pattern-description {
       margin-top: 30px;
     }
+
     .hidden {
       display: none;
     }
 
+    /* INFO CONTENT */
+    #info-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    #info-content h2 {
+      color: #343a40;
+      margin-top: 30px;
+      margin-bottom: 15px;
+    }
+    #info-content p {
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+    .pattern-box {
+      background-color: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    .pattern-box h3 {
+      color: #495057;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    /* MEDIA QUERY FOR SMALLER SCREENS */
     @media (max-width: 768px) {
-      .google-form iframe {
-        height: 2000px;
-      }
       .sidebar {
         transform: translateX(-100%);
         transition: transform 0.3s ease;
@@ -289,85 +289,71 @@
         margin-left: 0;
         width: 100%;
       }
-      .home-button {
-        position: fixed;
-        top: 20px;
-        left: 20px;
-        background-color: #007bff;
-        color: white;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        z-index: 1001;
-      }
-
-      /* Update the sidebar title positioning */
-      .sidebar h2 {
-        text-align: center;
-        margin-top: 50px; /* Space for the home button */
-        margin-bottom: 20px;
-        padding: 0 20px;
-      }
     }
   </style>
 </head>
 
 <body>
-  <!-- HOME BUTTON -->
-  <button class="home-button" onclick="goHome()" title="Go to Home Page">
-    <i class="fas fa-home"></i>
-  </button>
-
-  <!-- LEFT SIDEBAR -->
+  <!-- SIDEBAR -->
   <div class="sidebar" id="navigation">
+    <!-- TOP BUTTONS ROW: Home (left) + Info (right) -->
+    <div class="top-buttons">
+      <button class="home-button" onclick="goHome()" title="Go to Home Page">
+        <i class="fas fa-home"></i> 
+      </button>
+      <button class="info-button" onclick="showInfo()" title="Show Information">
+        i
+      </button>
+    </div>
+
     <h2>Projects</h2>
     <div id="fileLinks"></div>
-    <!-- Info button moved here -->
-    <button class="info-button" onclick="showInfo()" title="Show Information">
-      i
-    </button>
   </div>
 
-  <!-- MAIN CONTENT AREA -->
+  <!-- MAIN CONTENT -->
   <div class="main-content">
-    <!-- Big Title: Will show either "User Story Hub" or the project name -->
+    <!-- Page Title changes depending on Home or Info or Project -->
     <h1 class="page-title" id="mainTitle">User Story Hub</h1>
 
     <div class="container" id="content">
-      <!-- HOME CONTENT: shown by default -->
+      <!-- HOME CONTENT -->
       <div id="home-content" class="content-page"></div>
+
+      <!-- INFO PAGE CONTENT (initially hidden) -->
+      <div id="info-content" class="content-page hidden">
+        <p>
+          This platform is dedicated to showcasing how different architectural
+          styles can be applied when creating software architectures. Each project
+          presents a unique set of requirements and challenges, making certain
+          architectural patterns more suitable than others.
+        </p>
+
+        <h2>Available Architecture Patterns</h2>
+        <div id="patterns-list">
+          <!-- Patterns will load here from patterns.json -->
+        </div>
+
+        <h2>Scoring System</h2>
+        <p>
+          Each architectural pattern is accompanied by a relevance score,
+          indicating its suitability for the given project context. These
+          scores will be compared with those generated by an independent AI
+          assessment, providing valuable insights into the alignment between
+          human expertise and artificial intelligence in architectural
+          decision-making.
+        </p>
+
+        <h2>Contact Information</h2>
+        <p>
+          For any further inquiries or questions about the architectural
+          patterns and their applications, please contact:
+          <a href="mailto:emir.oeztoprak@tum.de">emir.oeztoprak@tum.de</a>
+        </p>
+      </div>
     </div>
-  </div>
-
-  <!-- INFO PAGE CONTENT (Hidden by default) -->
-  <div id="info-content" class="content-page hidden">
-    <h1 class="page-title">About Architecture Patterns</h1>
-    
-    <p>
-        This platform is dedicated to showcasing how different architectural styles can be applied when creating software architectures. Each project presents a unique set of requirements and challenges, making certain architectural patterns more suitable than others.
-    </p>
-
-    <h2>Available Architecture Patterns</h2>
-    <div id="patterns-list">
-        <!-- Patterns will be loaded here from patterns.json -->
-    </div>
-
-    <h2>Scoring System</h2>
-    <p>
-        Each architectural pattern is accompanied by a relevance score, indicating its suitability for the given project context. These scores will be compared with those generated by an independent AI assessment, providing valuable insights into the alignment between human expertise and artificial intelligence in architectural decision-making.
-    </p>
-
-    <h2>Contact Information</h2>
-    <p>
-        For any further inquiries or questions about the architectural patterns and their applications, please contact:
-        <a href="mailto:emir.oeztoprak@tum.de">emir.oeztoprak@tum.de</a>
-    </p>
   </div>
 
   <script>
-    const navContainer = document.getElementById('navigation');
-    const contentContainer = document.getElementById('content');
     const fileLinksContainer = document.getElementById('fileLinks');
     const mainTitle = document.getElementById('mainTitle');
 
@@ -391,11 +377,11 @@
       'user_stories_federal_spending':
         "https://docs.google.com/forms/d/e/1FAIpQLSfMtAfbURj--l131BgOvsC2tp-JugqHeC7iJaHMldjC-XIPSw/viewform?embedded=true",
       'user_stories_planning_poker':
-         "https://docs.google.com/forms/d/e/1FAIpQLSeFHQDxrDjXItKOkqRsU56r_r-7dWOVFFsGxH1W2cCqdGRrJw/viewform?embedded=true",
+        "https://docs.google.com/forms/d/e/1FAIpQLSeFHQDxrDjXItKOkqRsU56r_r-7dWOVFFsGxH1W2cCqdGRrJw/viewform?embedded=true",
       'user_stories_scrum_alliance':
-          "https://docs.google.com/forms/d/e/1FAIpQLSe2d1GNLIRJu8ML48FqWtwJ4DvpE_qEU2iAn-aaEg36COaDUQ/viewform?embedded=true",
+        "https://docs.google.com/forms/d/e/1FAIpQLSe2d1GNLIRJu8ML48FqWtwJ4DvpE_qEU2iAn-aaEg36COaDUQ/viewform?embedded=true",
       'user_stories_open_spending':
-         "https://docs.google.com/forms/d/e/1FAIpQLScyHJlsKtG0WKo1YJvAGQfUe1_n20MAsyypz1HpkzFDIJyr_Q/viewform?embedded=true",
+        "https://docs.google.com/forms/d/e/1FAIpQLScyHJlsKtG0WKo1YJvAGQfUe1_n20MAsyypz1HpkzFDIJyr_Q/viewform?embedded=true",
       'user_stories_archives_space':
         "https://docs.google.com/forms/d/e/1FAIpQLSeVApbbBsSP3U5w3EpPihf8bqeJgsBpJ5WBxnGtW-LwRoPKgw/viewform?embedded=true",
       'user_stories_bad_camp':
@@ -406,27 +392,49 @@
         "https://docs.google.com/forms/d/e/1FAIpQLScYop1MFSU3TGqb7OmmW5hfQ7sS43Hb5PCPzSGmbcPAuqC_ug/viewform?embedded=true",
     };
 
-    function displayCategories(data, fileName) {
-      const contentDiv = document.getElementById(`${fileName}-content`);
-      if (!contentDiv) return;
+    /* Dynamically populate the sidebar and set up links */
+    function initializePage() {
+      const fileNames = Object.keys(projectNames);
 
-      contentDiv.innerHTML = '';
+      fileNames.forEach(fileName => {
+        const projectName = projectNames[fileName];
+        const link = document.createElement('a');
+        link.classList.add('nav-link');
+        link.href = `#${fileName}`;
+        link.setAttribute('data-file', fileName);
+        link.textContent = projectName;
+
+        link.addEventListener('click', event => {
+          event.preventDefault();
+          loadPage(fileName);
+        });
+
+        fileLinksContainer.appendChild(link);
+      });
+    }
+
+    /* Displays the user's categories (user stories) from JSON */
+    function displayCategories(data, fileName) {
+      const existingDiv = document.getElementById(`${fileName}-content`);
+      if (!existingDiv) return;
+
+      existingDiv.innerHTML = '';
 
       if (data.description) {
         const descHeading = document.createElement('h2');
         descHeading.classList.add('description-heading');
         descHeading.textContent = "Description";
-        contentDiv.appendChild(descHeading);
+        existingDiv.appendChild(descHeading);
 
         const descriptionDiv = document.createElement('div');
         descriptionDiv.classList.add('description-tab');
         descriptionDiv.textContent = data.description;
-        contentDiv.appendChild(descriptionDiv);
+        existingDiv.appendChild(descriptionDiv);
       }
 
       const catTitle = document.createElement('h2');
       catTitle.textContent = 'Categorized User Stories';
-      contentDiv.appendChild(catTitle);
+      existingDiv.appendChild(catTitle);
 
       for (const categoryName in data) {
         if (categoryName === "description") continue;
@@ -444,16 +452,17 @@
         const contentUl = document.createElement('ul');
         contentUl.classList.add('category-content');
         data[categoryName].forEach(story => {
-          const storyLi = document.createElement('li');
-          storyLi.textContent = story;
-          contentUl.appendChild(storyLi);
+          const li = document.createElement('li');
+          li.textContent = story;
+          contentUl.appendChild(li);
         });
 
         categoryDiv.appendChild(headerDiv);
         categoryDiv.appendChild(contentUl);
-        contentDiv.appendChild(categoryDiv);
+        existingDiv.appendChild(categoryDiv);
       }
 
+      // If there's a matching Google Form, embed it
       if (googleForms[fileName]) {
         const formDiv = document.createElement('div');
         formDiv.classList.add('google-form');
@@ -469,31 +478,34 @@
         iframe.style.overflow = 'hidden';
 
         formDiv.appendChild(iframe);
-        contentDiv.appendChild(formDiv);
+        existingDiv.appendChild(formDiv);
       }
     }
 
+    /* Loads the JSON for a specific project */
     function loadPage(fileName) {
-      document.getElementById('home-content').classList.add('hidden');
-      document.getElementById('info-content').classList.add('hidden');
-
+      hideAllContent();
       const contentDivId = `${fileName}-content`;
-      let selectedContentDiv = document.getElementById(contentDivId);
-
-      const contentDivs = document.querySelectorAll('.content-page');
-      contentDivs.forEach(div => div.classList.add('hidden'));
+      let targetDiv = document.getElementById(contentDivId);
 
       const navLinks = document.querySelectorAll('.nav-link');
       navLinks.forEach(link => link.classList.remove('active'));
 
+      // Mark link as active
       const activeLink = document.querySelector(`.nav-link[data-file="${fileName}"]`);
       if (activeLink) activeLink.classList.add('active');
 
       mainTitle.textContent = projectNames[fileName];
 
-      if (selectedContentDiv && selectedContentDiv.innerHTML.trim() !== '') {
-        selectedContentDiv.classList.remove('hidden');
-      } else {
+      // If we have not created the targetDiv yet or it's empty, fetch the JSON
+      if (!targetDiv) {
+        targetDiv = document.createElement('div');
+        targetDiv.id = contentDivId;
+        targetDiv.classList.add('content-page');
+        document.getElementById('content').appendChild(targetDiv);
+      }
+
+      if (targetDiv.innerHTML.trim() === '') {
         fetch(`${fileName}.json`)
           .then(response => {
             if (!response.ok) {
@@ -502,40 +514,21 @@
             return response.json();
           })
           .then(data => {
-            if (!selectedContentDiv) {
-              selectedContentDiv = document.createElement('div');
-              selectedContentDiv.id = contentDivId;
-              selectedContentDiv.classList.add('content-page');
-              contentContainer.appendChild(selectedContentDiv);
-            } else {
-              selectedContentDiv.innerHTML = '';
-            }
             displayCategories(data, fileName);
-            selectedContentDiv.classList.remove('hidden');
+            targetDiv.classList.remove('hidden');
           })
           .catch(error => {
             console.error('Error loading data:', error);
-            if (!selectedContentDiv) {
-              selectedContentDiv = document.createElement('div');
-              selectedContentDiv.id = contentDivId;
-              selectedContentDiv.classList.add('content-page');
-              contentContainer.appendChild(selectedContentDiv);
-            }
-            selectedContentDiv.innerHTML = '<p>Failed to load data.</p>';
-            selectedContentDiv.classList.remove('hidden');
+            targetDiv.innerHTML = '<p>Failed to load data.</p>';
+            targetDiv.classList.remove('hidden');
           });
+      } else {
+        targetDiv.classList.remove('hidden');
       }
     }
 
     function showInfo() {
-      document.getElementById('home-content').classList.add('hidden');
-      const contentDivs = document.querySelectorAll('.content-page');
-      contentDivs.forEach(div => {
-          if (div.id !== 'info-content') {
-              div.classList.add('hidden');
-          }
-      });
-
+      hideAllContent();
       document.getElementById('info-content').classList.remove('hidden');
       mainTitle.textContent = 'Architecture Pattern Information';
 
@@ -547,20 +540,20 @@
 
     function loadPatternsForInfo() {
       const patternsContainer = document.getElementById('patterns-list');
-      // Only load once
+      // Load only once
       if (!patternsContainer.children.length) {
         fetch('patterns.json')
           .then(response => response.json())
           .then(patterns => {
             for (const patternName in patterns) {
               const pattern = patterns[patternName];
-              const patternDiv = document.createElement('div');
-              patternDiv.classList.add('pattern-box');
-              patternDiv.innerHTML = `
+              const box = document.createElement('div');
+              box.classList.add('pattern-box');
+              box.innerHTML = `
                 <h3>${patternName}</h3>
                 <p>${pattern.description}</p>
               `;
-              patternsContainer.appendChild(patternDiv);
+              patternsContainer.appendChild(box);
             }
           })
           .catch(error => {
@@ -570,62 +563,49 @@
       }
     }
 
-    function initializePage() {
-      const fileNames = Object.keys(projectNames);
-
-      fileNames.forEach(fileName => {
-        const projectName = projectNames[fileName];
-        const link = document.createElement('a');
-        link.classList.add('nav-link');
-        link.href = `#${fileName}`;
-        link.setAttribute('data-file', fileName);
-        link.textContent = projectName;
-        fileLinksContainer.appendChild(link);
-
-        link.addEventListener('click', event => {
-          event.preventDefault();
-          loadPage(fileName);
-        });
-      });
+    /* Hide all dynamically generated pages & the info page */
+    function hideAllContent() {
+      const contentPages = document.querySelectorAll('.content-page');
+      contentPages.forEach(page => page.classList.add('hidden'));
     }
 
+    /* Home page view */
     function goHome() {
+      hideAllContent();
       document.getElementById('home-content').classList.remove('hidden');
-      document.getElementById('info-content').classList.add('hidden');
-
-      const contentDivs = document.querySelectorAll('.content-page');
-      contentDivs.forEach(div => {
-        if (div.id !== 'home-content') {
-          div.classList.add('hidden');
-        }
-      });
+      mainTitle.textContent = 'User Story Hub';
 
       const navLinks = document.querySelectorAll('.nav-link');
       navLinks.forEach(link => link.classList.remove('active'));
-
-      mainTitle.textContent = 'User Story Hub';
     }
 
-    function displayArchitecturePatterns() {
+    /* Fill home content and initialize sidebar */
+    function displayHomeContent() {
       const homeContentDiv = document.getElementById('home-content');
       homeContentDiv.innerHTML = `
         <div class="home-page">
-            <h1>Welcome to Our User Story Hub</h1>
-            <p>
-                Explore different projects and their user stories to understand how various software architecture patterns can be applied. Each project includes descriptions and categorized user stories that help inform architectural decisions.
-            </p>
-            <p>
-                To learn more about the available architecture patterns and scoring system, click the <strong>i</strong> button in the sidebar or 
-                <a href="#" onclick="showInfo(); return false;">click here</a>.
-            </p>
+          <h1>Welcome to Our User Story Hub</h1>
+          <p>
+            Explore different projects and their user stories to understand
+            how various software architecture patterns can be applied.
+            Each project includes descriptions and categorized user stories
+            that help inform architectural decisions.
+          </p>
+          <p>
+            To learn more about the available architecture patterns and
+            scoring system, click the <strong>i</strong> button at the top
+            right of the sidebar or
+            <a href="#" onclick="showInfo(); return false;">click here</a>.
+          </p>
         </div>
       `;
     }
 
-    // Initialize the sidebar links and display the home content
-    initializePage();
-    displayArchitecturePatterns();
+    /* Initialization */
+    (function init() {
+      initializePage();
+      displayHomeContent();
+    })();
   </script>
 </body>
 </html>
-```
