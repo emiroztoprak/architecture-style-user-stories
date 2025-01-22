@@ -292,6 +292,13 @@
       margin-top: 0;
       margin-bottom: 10px;
     }
+    .pattern-box .pattern-img {
+      width: 200px;
+      height: 120px;
+      object-fit: cover; 
+      display: block;
+      margin-bottom: 10px;
+    }
 
     /* MEDIA QUERY FOR SMALLER SCREENS */
     @media (max-width: 768px) {
@@ -562,6 +569,7 @@
         fetch('patterns.json')
           .then(response => response.json())
           .then(patterns => {
+
             for (const patternName in patterns) {
               const pattern = patterns[patternName];
               const box = document.createElement('div');
@@ -569,6 +577,11 @@
               box.innerHTML = `
                 <h3>${patternName}</h3>
                 <p>${pattern.description}</p>
+                <img 
+                  src="${pattern.image}"
+                  alt="${patternName}" 
+                  class="pattern-img"
+                />
               `;
               patternsContainer.appendChild(box);
             }
