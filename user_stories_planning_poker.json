@@ -1,5 +1,5 @@
 {
-    "description": "This refers to the first version of the Planning Poker website, which allows estimators in different locations to estimate collaboratively.",
+    "description": "This refers to the first version of the Planning Poker website, which allows agile teams in different locations to estimate the story points or ideal days for their product backlogs collaboratively.",
     "Usability & Accessibility": [
       "As a moderator, I want to start a round by entering an item in a single multi-line text field, so that we can estimate it.",
       "As a moderator, I want to see all items we try to estimate this session, so that I can answer questions about the current story such as \"does this include ___?\".",
