@@ -11,11 +11,13 @@
     "As a Data Consuming User, I want to visualize by default in treemap, bubble tree, map and pivot table the most recent year when my dataset contain multiple years, So that I'm not confused with the amounts.",
     "As a User, I want to be able to set my own username, So that my data is more easily discoverable.",
     "As an API User, I want to be able to get bordering regions|cities when I query a region|city, So that I can provider wider visual context for mapping visualisations.",
+    "As an API User, I want a consistent download/upload speed even at moments when the website has a lot of user traffic.",
     "As an API User, I want to be able to dynamically request polygons based on the query made, So that I can provide maps that match the query.",
     "As an API User, I want to be able to get a set of monetary measures transferred to different currencies, So that I can use this in scenarios that might enable comparison by normalisation.",
     "As an API User, I want to be able to use metadata to get results from multiple datasets, So that I can build user experiences based on more than one dataset more easily.",
     "As an API User, I want to be able to use data to get results from multiple datasets, So that I can build user experiences based on more than one dataset more easily.",
-    "As an API User, I want to be able to get a relative percentage of a measure to the total of the dataset it comes from, So that I can build alternative displays of the data."
+    "As an API User, I want to be able to get a relative percentage of a measure to the total of the dataset it comes from, So that I can build alternative displays of the data.",
+    "As an API User, I want to have a consistenly fast API access even for the larger datasets that must be up and running 24/7 without any cutoffs."
   ],
   "Integrability & Interoperability": [
     "As a Data Publishing User, I want to be able to import data in Excel, So that I do not have to convert data formats in order to use the data packager.",
@@ -47,8 +49,8 @@
     "As a Data Publishing User, I want to have the Packager support Constants, So that I can model dimensions that may not exist in the source file.",
     "As a Data Publishing User, I want to be able to provide the Platform Administrator with additional GeoJSON sources, So that I can improve the map-based visualisations of my data.",
     "As a Data Publishing User, I want to have my dataset update automatically as the source file/files changes, So that OpenSpending always shows current data.",
-    "As a Developer, I want to design the system using distributed, decoupled patterns that promote loose coupling, so that future enhancements and integration of additional modules are easier.",
-    "As a Data Publishing User, I want the data import pipeline to be implemented in a highly scalable and distributed manner, so that it can automatically adjust to changes in data volume."
+    "As a Data Publishing User, I want the data import pipeline to be implemented in a highly scalable and distributed manner, so that it can automatically adjust to changes in data volume.",
+    "As a Data Publishing User, I want the system to support seamless addition of new processing nodes without service interruption, so that it can scale horizontally as data volumes grow."
   ],
   "Performance Efficiency & Resource Utilization": [
     "As a Data Consuming User, I want to be able to download a CSV of the data that is used in any visualisation I am viewing, So that I can use the data in other tools.",
@@ -73,8 +75,11 @@
     "As an API User, I want to be able to normalise measures by GDP, so I work with datasets in reference to their contextual constraints.",
     "As an API User, I want to be able to normalise measures by GINI and related socioeconomic indexes, So that I work with datasets in reference to their contextual constraints.",
     "As a System Architect, I want to design the system to decouple data ingestion from processing, enabling horizontal scalability and maintaining responsiveness during peak loads.",
-    "As a Developer, I want to integrate distributed in-memory data grids for caching and state management, so that the system can handle real-time updates and high volumes of concurrent requests.",
-    "As a Platform Administrator, I want to deploy and monitor distributed processing nodes, so that I can ensure high availability and rapid recovery in case of node failures."
+    "As a System Architect, I want to get options for different cloud providers to pick which one suits our needs best",
+    "As a System Architect, I want to be able to have control over the number of server units we have depending on the expected user traffic",
+    "As a Developer, I want to integrate distributed in-memory data grids for caching and state management, so that the system can handle real-time updates and traffic spikes with high volumes of concurrent requests.",
+    "As a Platform Administrator, I want to deploy and monitor distributed processing nodes, so that I can ensure high availability and rapid recovery in case of node failures.",
+    "As a Platform Administrator, I want to deploy monitor distributed processing nodes, so that I can ensure a spike of concurrent downloads and uploads do not cause any availability issues."
   ],
   "Exchangeability & Replaceability": [],
   "Analyzability & Traceability": []
