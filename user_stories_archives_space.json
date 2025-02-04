@@ -4,8 +4,8 @@
     "As an Archivist, I want to see Dates and Extents displayed in both the read and edit views for Accessions and/or Resources before the list of Subjects.",
     "As an Archivist, I want to rearrange the Resource and/or Digital Object hierarchy using keyboard-based navigation.",
     "As an Archivist, I want to rearrange the resource description hierarchy by dragging an archival object to a different position in the hierarchy.",
-    "As an Archivist, I want to import EAD files that were exported by Archon.",
-    "As an Archivist, I want to import EAD files that were exported by the Archivists' Toolkit.",
+    "As an Archivist, I want to import (Encoded Archival Description) EAD files that were exported by Archon.",
+    "As an Archivist, I want to import (Encoded Archival Description) EAD files that were exported by the Archivists' Toolkit.",
     "As an archivist, I want to search within a repository for resource and accession and digital object records.",
     "As an archivist, I want to create and edit a Collection Management subrecord.",
     "As an Archivist, I want to create and edit Event records.",
@@ -16,7 +16,11 @@
     "As an Archivist, I want to create and edit a Resource record.",
     "As an Archivist, I want to associate a Subject record with a Resource description.",
     "As an Archivist, I want to associate an Instance with a Container.",
-    "As an Archivist, I want to assign Location information to a Container."
+    "As an Archivist, I want to assign Location information to a Container.",
+    "As an Archivist, I would like to indicate an Agent is either the creator, source, or subject of an Accession or Resource or Resource Component.",
+    "As an Archivist, I want to specify the Source for a Name Form of an Agent and add new Sources and edit existing Sources.",
+    "As a researcher, I want to be able to view a finding aid for a particular collection/Resource.",
+    "As a Basic Data Entry user, I want to create and update basic archival description information."
   ],
   "Integrability & Interoperability": [
     "As an Archivist, I want to import Accessions data in CSV.",
@@ -47,7 +51,10 @@
     "As a Repository Manager, I want to create, update, and delete archival descriptions in my repository.",
     "As a Repository Manager, I want to create, update, and delete any records in my repository.",
     "As an System Administrator, I want to declare that a user has the Repository Manager role for a given Repository.",
-    "As a Developer, I want the batch processing of large data imports to be executed in a series of processing steps, so that system stability is maintained during heavy loads."
+    "As a Developer, I want the batch processing of large data imports to be executed in a series of processing steps, so that system stability is maintained during heavy loads.",
+    "As an Archivist, I want to assign a component unique identifier to a Resource Component.",
+    "As an Archivist, I want to associate a standard identifier string with a Subject heading.",
+    "As an Archivist, I want to add administrative data about the archival description and finding aid-related data to a top-level Resource."
   ],
   "Modularity & Extensibility": [
     "As a user, I want backend changes for managing enum lists.",
@@ -58,30 +65,20 @@
     "As an Archivist, I want to add Notes to other record types.",
     "As a Developer, I want to develop a custom importer.",
     "As an Archivist, I want the import mechanism to support plug-and-play modules for handling various file formats",
-    "As a Developer, I want to configure processing stages through external settings, so that additional transformation steps can be added as requirements evolve."
+    "As a Developer, I want to configure processing stages through external settings, so that additional transformation steps can be added as requirements evolve.",
+    "As an Archivist, I want to assign a Level of description to a Resource or Resource Component and optionally specify another value if the Level is not in a predefined list."
   ],
   "Performance Efficiency & Resource Utilization": [
     "As an Archivist, I want the import process to run through a multi-stage transformation that validates, transforms, and loads records, so that large batches of data can be processed efficiently without impacting system performance.",
     "As a Developer, I want the data export process to be implemented in a sequential manner, so that resource-intensive formatting tasks are distributed over multiple steps for optimal performance.",
     "As an Archivist, I want large-scale data imports to be handled in stages, so that processing load is evenly distributed and overall performance remains optimal."
   ],
-  "Variability & Flexibility": [
-    "As an Archivist, I want to assign a component unique identifier to a Resource Component.",
-    "As an Archivist, I want to associate a standard identifier string with a Subject heading.",
-    "As an Archivist, I want to add administrative data about the archival description and finding aid-related data to a top-level Resource.",
-    "As an Archivist, I want to assign a Level of description to a Resource or Resource Component and optionally specify another value if the Level is not in a predefined list.",
-    "As an Archivist, I would like to indicate an Agent is either the creator, source, or subject of an Accession or Resource or Resource Component.",
-    "As an Archivist, I want to specify the Source for a Name Form of an Agent and add new Sources and edit existing Sources."
-  ],
   "Implementability & Ease of Development": [
-    "As a researcher, I want to be able to view a finding aid for a particular collection/Resource.",
     "As an Archivist, I want to be able to understand that an error occurred during import and why it might have occurred.",
     "As an Authenticated User, I want to get access to links to contextual help.",
-    "As a Basic Data Entry user, I want to create and update basic archival description information.",
     "As a Developer, I want the transformation logic for data imports to be modularized into independent processing units, so that each unit can be developed, tested, and maintained separately.",
     "As a Developer, I want comprehensive logging and error handling at each processing step, so that issues in the data transformation flow can be quickly diagnosed."
   ],
-  "Exchangeability & Replaceability": [],
   "Analyzability & Traceability": [
     "As a System Administrator, I want detailed metrics and logs generated at each stage of the data processing flow, so that I can trace record transformations and analyze performance at every step.",
     "As a Developer, I want to trace the lineage of data as it moves through each processing stage, so that I can pinpoint where errors or performance issues occur."

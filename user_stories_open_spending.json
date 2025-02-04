@@ -5,8 +5,6 @@
     "As a Data Consuming User, I want to be able to change the display of all monetary measures across a set of currencies, So that I can understand localised amounts in non-localised figures.",
     "As a Data Consuming User, I want to see textual descriptions that accompany embedded visualisations, So that I can more easily understand what I am viewing.",
     "As a Data Consuming User, I want to be able to share a view state as a URL to social networks, So that I can share data that I have found with others.",
-    "As a Data Consuming User, I want to be able to have stepped zoom on map visualisations, So that I can have better control over the navigation experience inside a map view.",
-    "As a Data Consuming User, I want to have consistent use of colour on map visualisations, So that I can better understand the visual logic of the map view.",
     "As a Data Consuming User, I want to be able to search any dataset published and publicly accessible by their title and metadata, So that I can find the datasets I'm interested in.",
     "As a Data Consuming User, I want to visualize by default in treemap, bubble tree, map and pivot table the most recent year when my dataset contain multiple years, So that I'm not confused with the amounts.",
     "As a User, I want to be able to set my own username, So that my data is more easily discoverable.",
@@ -17,7 +15,7 @@
     "As an API User, I want to be able to use metadata to get results from multiple datasets, So that I can build user experiences based on more than one dataset more easily.",
     "As an API User, I want to be able to use data to get results from multiple datasets, So that I can build user experiences based on more than one dataset more easily.",
     "As an API User, I want to be able to get a relative percentage of a measure to the total of the dataset it comes from, So that I can build alternative displays of the data.",
-    "As an API User, I want to have a consistenly fast API access even for the larger datasets that must be up and running 24/7 without any cutoffs."
+    "As a Data Consuming User, I want to be able to share an image of a particular view state to the social networks that support this, So that I can provide richer context in those communication channels for data I am sharing."
   ],
   "Integrability & Interoperability": [
     "As a Data Publishing User, I want to be able to import data in Excel, So that I do not have to convert data formats in order to use the data packager.",
@@ -26,7 +24,9 @@
     "As a Data Publishing User, I want to be able to import data from Fiscal Data Package descriptor file, So that I do not have to convert data formats in order to use the data packager.",
     "As a Data Publishing User, I want to have a functioning Python Client, So that I can add data to the datastore in bulk from the command line or my own programs.",
     "As a Data Publishing User, I want to know if my CSV file is valid, So that I can fix possible data issues before publishing it on Open Spending.",
-    "As an API User, I want to have a flexible API using HASC codes for countries, regions and cities, So that I can visualise budget data on maps."
+    "As an API User, I want to have a flexible API using HASC codes for countries, regions and cities, So that I can visualise budget data on maps.",
+    "As a Data Consuming User, I want to be able to have stepped zoom on map visualisations, So that I can have better control over the navigation experience inside a map view.",
+    "As a Data Consuming User, I want to have consistent use of colour on map visualisations, So that I can better understand the visual logic of the map view."
   ],
   "Security & Confidentiality": [
     "As a Data Publishing User, I want to be able to add a dataset in a Hidden state, So that I can work on a dataset before having it discoverable via OpenSpending user interfaces.",
@@ -50,20 +50,18 @@
     "As a Data Publishing User, I want to be able to provide the Platform Administrator with additional GeoJSON sources, So that I can improve the map-based visualisations of my data.",
     "As a Data Publishing User, I want to have my dataset update automatically as the source file/files changes, So that OpenSpending always shows current data.",
     "As a Data Publishing User, I want the data import pipeline to be implemented in a highly scalable and distributed manner, so that it can automatically adjust to changes in data volume.",
-    "As a Data Publishing User, I want the system to support seamless addition of new processing nodes without service interruption, so that it can scale horizontally as data volumes grow."
+    "As a Data Publishing User, I want the system to support seamless addition of new processing nodes without service interruption, so that it can scale horizontally as data volumes grow.",
+    "As an API user, I want to be able to change the colors of the embedded visualisations in my own platform, So that I can customize the visualisations.",
+    "As an API user, I want to be able to change some of the styling of the embedded Viewer in my own platform, So that I can brand it to my own organisation's color scheme.",
+    "As a Developer, I want to be able to customise the Brand Name and Icon, and Primary Color of all frontend Javascript apps, So that I can customise the branding for my own needs."
   ],
   "Performance Efficiency & Resource Utilization": [
     "As a Data Consuming User, I want to be able to download a CSV of the data that is used in any visualisation I am viewing, So that I can use the data in other tools.",
     "As a Data Consuming User, I want to be able to download an image of a particular view state, So that I can use it offline.",
     "As an API User, I want to be able to get a CSV output of any cube-based query, So that I can use work with tools that read CSV.",
     "As an API User, I want queries to be processed using a distributed processing approach, so that large datasets are handled efficiently and performance is maintained under heavy load.",
+    "As an API User, I want to have a consistenly fast API access even for the larger datasets that must be up and running 24/7 without any cutoffs.",
     "As a Data Consuming User, I want data visualizations to be served from a dynamic, in-memory data store, so that response times remain low even during peak usage."
-  ],
-  "Variability & Flexibility": [
-    "As a Data Consuming User, I want to be able to share an image of a particular view state to the social networks that support this, So that I can provide richer context in those communication channels for data I am sharing.",
-    "As an API user, I want to be able to change the colors of the embedded visualisations in my own platform, So that I can customize the visualisations.",
-    "As an API user, I want to be able to change some of the styling of the embedded Viewer in my own platform, So that I can brand it to my own organisation's color scheme.",
-    "As a Developer, I want to be able to customise the Brand Name and Icon, and Primary Color of all frontend Javascript apps, So that I can customise the branding for my own needs."
   ],
   "Implementability & Ease of Development": [
     "As a Data Publishing User, I want to know what my data needs to be able to be visualised on a map, So that I can visualise it on a map.",
@@ -81,6 +79,5 @@
     "As a Platform Administrator, I want to deploy and monitor distributed processing nodes, so that I can ensure high availability and rapid recovery in case of node failures.",
     "As a Platform Administrator, I want to deploy monitor distributed processing nodes, so that I can ensure a spike of concurrent downloads and uploads do not cause any availability issues."
   ],
-  "Exchangeability & Replaceability": [],
   "Analyzability & Traceability": []
 }
