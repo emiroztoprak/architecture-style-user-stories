@@ -25,11 +25,7 @@
     "As a lab member, I want to view events and equipment bookings within the group.",
     "As a user, I want to view and update an inventory of of the equipment and consumables that are present in the centre.",
     "As a user, I want to have a spreadsheet hosted within the Neurohub Web page, so that I can edit and calculate costs collaboratively with others while working on the proposal.",
-    "As a user, I want to have the option to tell Neurohub to push posted content to my Twitter feed at the same time.",
     "As a user, I want to either keep a logbook entry private or share it with individuals rather than groups.",
-    "As a user, I want to have that my Twitter Tweets to appear in Neurohub, so that other researchers in the centre can see what I am up to.",
-    "As a user, I want to view the group's shared calendars via the Neurohub Nodes' Web page as well as on my mobile device.",
-    "As a user, I want to sync events created in NeuroHub with a web-based Calendar such as Google Calendar.",
     "As a researcher, I want to have the ability to insert Greek symbols into my logbook entries.",
     "As a user, I want to have the ability to move multiple files around and rearrange them using the Neurohub file browser while processing data.",
     "As a researcher, I want to have electronic support for keeping track of which data sets were used/output/modified as part of a particular experiment.",
@@ -61,7 +57,11 @@
     "As a researcher, I want to point my Mendeley client at a group-wide shared repository of research papers and get notifications via Mendeley when new content is added.",
     "As a researcher, I want to have remote access to my data for off-site working , so that I can still work effectively while away from the lab.",
     "As a researcher, I want to secure remote access to the Neurohub node when working away from the laboratory",
-    "As a researcher, I want to have a group-level repository for sharing papers/reviews/comments with other researchers."
+    "As a researcher, I want to have a group-level repository for sharing papers/reviews/comments with other researchers.",
+    "As a user, I want to have the option to tell Neurohub to push posted content to my Twitter feed at the same time.",
+    "As a user, I want to have that my Twitter Tweets to appear in Neurohub, so that other researchers in the centre can see what I am up to.",
+    "As a user, I want to view the group's shared calendars via the Neurohub Nodes' Web page as well as on my mobile device.",
+    "As a user, I want to sync events created in NeuroHub with a web-based Calendar such as Google Calendar."   
   ],
   "Security & Confidentiality": [
     "As a user, I want to make uploaded data files to be non-modifiable.",
