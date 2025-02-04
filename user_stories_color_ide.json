@@ -13,7 +13,6 @@
       "As a Developer, I want a distraction-free mode that hides non-essential UI elements, so that I can focus solely on writing code when needed.",
       "As a Developer, I want the option to switch between different editor modes (e.g., coding, debugging, testing), so that context-specific tools are always at hand.",
       "As a Developer, I want to customize keyboard shortcuts, macros, and menu configurations, so that I can streamline my workflow according to my preferences."
-
     ],
     "Integrability & Interoperability": [
       "As a Plugin Developer, I want a robust, well-documented API for integrating third-party tools, so that I can extend ColorIDE without modifying the core.",
@@ -51,7 +50,8 @@
     ],
     "Analyzability & Traceability": [
       "As a Developer, I want detailed logging of interactions between the IDE core and plugins, so that I can quickly trace and resolve issues.",
-      "As a Support Engineer, I want comprehensive audit trails of plugin installations, updates, and removals, so that all changes to the system are fully traceable."
+      "As a Support Engineer, I want comprehensive audit trails of plugin installations, updates, and removals, so that all changes to the system are fully traceable.",
+      "As a Support Engineer, I want to get the log of IDE crashes to be reported to me so I can find and analyze common issues shared between multiple users"
     ]
   }
   
