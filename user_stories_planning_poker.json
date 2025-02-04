@@ -1,5 +1,5 @@
 {
-  "description": "This refers to the first version of the Planning Poker website, which allows agile teams in different locations to estimate the story points or ideal days for their product backlogs collaboratively.",
+  "description": "This refers to the first version of the Planning Poker website, which allows agile teams in different locations to estimate the story points or ideal days for their product backlogs collaboratively in real-time.",
   "Usability & Accessibility": [
     "As a moderator, I want to start a round by entering an item in a single multi-line text field, so that we can estimate it.",
     "As a moderator, I want to see all items we try to estimate this session, so that I can answer questions about the current story such as \"does this include ___?\".",
@@ -29,7 +29,6 @@
     "As a user, I want to have the application respond quickly to my actions, so that I don't get bored.",
     "As a user, I want to be able to use Unicode, so that I can use any language I like.",
     "As a user, I want to see sensible and predictable URLs, so that the application feels logical and transparent.",
-    "As a user, I want to have nice error pages when something goes wrong, so that I can trust the system and its developers.",
     "As a moderator, I want to select whether to have the team estimate with {0, 1/2, 1, 2, 3, 5, 8, etc.} or {0, 1, 2, 4, 8, 16, 32, etc.}, so that the team can use either the modified Fibonacci sequence or powers of 2."
   ],
   "Integrability & Interoperability": [
@@ -66,6 +65,7 @@
     "As a developer, I want to have the site comply with the W3C accessibility guidelines where possible, so that people with accessibility issues can use the application."
   ],
   "Analyzability & Traceability": [
-    "As a moderator, I want to be able to see some metrics on use of the game, so that I can see how much it is being used."
+    "As a moderator, I want to be able to see some metrics on use of the game, so that I can see how much it is being used.",
+    "As a user, I want to have nice error pages when something goes wrong, so that I can trust the system and its developers."
   ]
 }
