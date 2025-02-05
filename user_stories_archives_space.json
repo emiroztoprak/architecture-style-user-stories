@@ -64,7 +64,7 @@
     "As a user, I want to add additional properties for repositories.",
     "As an Archivist, I want to add Notes to other record types.",
     "As a Developer, I want to develop a custom importer.",
-    "As an Archivist, I want the import mechanism to support plug-and-play modules for handling various file formats",
+    "As an Archivist, I want the import mechanism to support dynamically integrated modules for handling various file formats.",
     "As a Developer, I want to configure processing stages through external settings, so that additional transformation steps can be added as requirements evolve.",
     "As an Archivist, I want to assign a Level of description to a Resource or Resource Component and optionally specify another value if the Level is not in a predefined list."
   ],
