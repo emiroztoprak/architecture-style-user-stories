@@ -59,7 +59,6 @@
     "As a Data Consuming User, I want to be able to download a CSV of the data that is used in any visualisation I am viewing, So that I can use the data in other tools.",
     "As a Data Consuming User, I want to be able to download an image of a particular view state, So that I can use it offline.",
     "As an API User, I want to be able to get a CSV output of any cube-based query, So that I can use work with tools that read CSV.",
-    "As an API User, I want queries to be processed using a distributed processing approach, so that large datasets are handled efficiently and performance is maintained under heavy load.",
     "As an API User, I want to have a consistenly fast API access even for the larger datasets that must be up and running 24/7 without any cutoffs.",
     "As a Data Consuming User, I want data visualizations to be served in a short time even when the servers are busy."
   ],
@@ -76,7 +75,7 @@
     "As a System Architect, I want to get options for different cloud providers to pick which one suits our needs best",
     "As a System Architect, I want to be able to have control over the number of server units we have depending on the expected user traffic",
     "As a Developer, I want to integrate distributed data grids for caching and state management, so that the system can handle real-time updates and traffic spikes with high volumes of concurrent requests.",
-    "As a Platform Administrator, I want to deploy monitor distributed processing nodes, so that I can ensure a spike of concurrent downloads and uploads do not cause any availability issues."
+    "As a Platform Administrator, I want to deploy and monitor distributed processing nodes, so that I can ensure a spike of downloads and uploads do not cause any availability issues."
   ],
   "Analyzability & Traceability": []
 }
