@@ -1,5 +1,4 @@
 {
-  "name": "ColorIDE",
   "description": "This concerns ColorIDE, an offline Integrated Development Environment for professional developers built with a core that provides essential editing and debugging capabilities.",
   "Functionality": [
     "As a developer, I want a simple and clean editor so I can write code easily.",
