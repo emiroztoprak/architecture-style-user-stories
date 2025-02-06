@@ -37,7 +37,7 @@
     "As an Archivist, I want to import EAD data.",
     "As an Archivist, I want to filter Accessions data as I need and export it as PDF.",
     "As an Archivist, I want to export a description as EAD.",
-    "As an Archivist, I want the overall data import/export process to be in steps, so that records go through clearly defined transformations."
+    "As an Archivist, I want to view the data import/export process through the steps, so that I can see the current progress."
   ],
   "Security & Confidentiality": [
     "As a User, I want to authenticate using LDAP.",
@@ -74,7 +74,7 @@
     "As an Authenticated User, I want to get access to links to contextual help.",
     "As a Developer, I want to use a configuration that is not prepackaged within a built version of the application.",
     "As a Developer, I want the transformation logic for data imports and exports to be modularized, so that each part can be developed, tested, and maintained separately.",
-    "As a Developer, I want comprehensive logging and error handling at each processing step, so that issues in the data transformation flow can be quickly diagnosed."
+    "As a Developer, I want comprehensive logging and error handling during processing steps, so that issues in the data transformation flow can be quickly diagnosed."
   ],
   "Analyzability & Traceability": [
     "As a System Administrator, I want detailed metrics and logs generated throughout the import/export flows, so that I can trace record transformations and analyze performance in detail.",
