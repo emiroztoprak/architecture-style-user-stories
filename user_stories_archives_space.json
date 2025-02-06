@@ -30,8 +30,9 @@
     "As an Archivist, I want to import only Agent and Subject information from MARCXML records.",
     "As an Archivist, I want to upload an EAD for import from within the frontend application.",
     "As an Archivist, I want to import EAD data.",
+    "As an Archivist, I want to filter Accessions data as I need and export it as PDF.",
     "As an Archivist, I want to export a description as EAD.",
-    "As an Archivist, I want the overall data export process to be implemented in steps, so that records pass through clearly defined transformations."
+    "As an Archivist, I want the overall data import/export process to be in steps, so that records go through clearly defined transformations."
   ],
   "Security & Confidentiality": [
     "As a User, I want to authenticate using LDAP.",
@@ -39,7 +40,7 @@
     "As an Archivist, I don't want to inadvertently overwrite someone else's changes to a record that I'm editing.",
     "As a User, I want to authenticate locally.",
     "As a User, I want to be able to log in.",
-    "As an Administrator, I want sensitive data to be masked at specific stages of processing, so that data privacy is maintained during multi-step transformations."
+    "As a System Administrator, I want sensitive data to be masked at specific stages of processing so that no leaks happen."
   ],
   "Manageability & Maintainability": [
     "As an Application Administrator, I want to be able to reset a User's password for them.",
@@ -51,7 +52,6 @@
     "As a Repository Manager, I want to create, update, and delete archival descriptions in my repository.",
     "As a Repository Manager, I want to create, update, and delete any records in my repository.",
     "As an System Administrator, I want to declare that a user has the Repository Manager role for a given Repository.",
-    "As a Developer, I want the batch processing of large data imports to be executed in a series of processing steps, so that system stability is maintained during heavy loads.",
     "As an Archivist, I want to assign a component unique identifier to a Resource Component.",
     "As an Archivist, I want to associate a standard identifier string with a Subject heading.",
     "As an Archivist, I want to add administrative data about the archival description and finding aid-related data to a top-level Resource."
@@ -64,23 +64,20 @@
     "As a user, I want to add additional properties for repositories.",
     "As an Archivist, I want to add Notes to other record types.",
     "As a Developer, I want to develop a custom importer.",
-    "As an Archivist, I want the import mechanism to support dynamically integrated modules for handling various file formats.",
+    "As an Developer, I want the import mechanism to support dynamically integrated modules for handling various file formats.",
     "As a Developer, I want to configure processing stages through external settings, so that additional transformation steps can be added as requirements evolve.",
     "As an Archivist, I want to assign a Level of description to a Resource or Resource Component and optionally specify another value if the Level is not in a predefined list."
   ],
   "Performance Efficiency & Resource Utilization": [
-    "As an Archivist, I want the import process to run through a multi-stage transformation that validates, transforms, and loads records, so that large batches of data can be processed efficiently without impacting system performance.",
-    "As a Developer, I want the data export process to be implemented in a sequential manner, so that resource-intensive formatting tasks are distributed over multiple steps for optimal performance.",
-    "As an Archivist, I want large-scale data imports to be handled in stages, so that processing load is evenly distributed and overall performance remains optimal."
   ],
   "Implementability & Ease of Development": [
-    "As an Archivist, I want to be able to understand that an error occurred during import and why it might have occurred.",
+    "As an Archivist, I want to be able to understand that an error occurred during import and at which exact part and why it might have occurred.",
     "As an Authenticated User, I want to get access to links to contextual help.",
-    "As a Developer, I want the transformation logic for data imports to be modularized into independent processing units, so that each unit can be developed, tested, and maintained separately.",
+    "As a Developer, I want the transformation logic for data imports and exports to be modularized, so that each part can be developed, tested, and maintained separately.",
     "As a Developer, I want comprehensive logging and error handling at each processing step, so that issues in the data transformation flow can be quickly diagnosed."
   ],
   "Analyzability & Traceability": [
-    "As a System Administrator, I want detailed metrics and logs generated at each stage of the data processing flow, so that I can trace record transformations and analyze performance at every step.",
-    "As a Developer, I want to trace the lineage of data as it moves through each processing stage, so that I can pinpoint where errors or performance issues occur."
+    "As a System Administrator, I want detailed metrics and logs generated throughout the import/export flows, so that I can trace record transformations and analyze performance in detail.",
+    "As a System Administrator, I want to be able to trace the data in the processing stage, so that I can pinpoint where errors or performance issues occur."
   ]
 }
