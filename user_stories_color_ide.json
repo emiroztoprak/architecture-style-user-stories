@@ -11,6 +11,8 @@
     "As a developer, I want a project loader to switch between multiple projects quickly.",
     "As a developer, I want clear setup instructions and an easy-to-use settings menu so I can customize my experience.",
     "As a developer, I want integrated help and documentation available from within the IDE.",
+    "As a developer, I want to be able to install and uninstall extensions as I need",
+    "As a developer, I want built-in support for languages like Python, Java, JavaScript as default",
     "As a developer, I want the ability to enable or disable extra features as needed, keeping the interface clean."
   ],
   "Integrability & Interoperability": [
