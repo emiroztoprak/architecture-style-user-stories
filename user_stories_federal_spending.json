@@ -70,7 +70,6 @@
     ],
     "Modularity & Extensibility": [
         "As an Agency user, I want to be able to include a large number of flexfields without performance impact.",
-        "As an Agency user, I want to be able to include a large number of flexfields without performance impact.",
         "As a Developer , I want my domain models to be indexed properly, so that I can get validation results back in a reasonable amount of time.",
         "As an agency user, I want to submit my data elements surrounded by quotation marks, so that Excel won't strip off leading and trailing zeroes."
     ],

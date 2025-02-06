@@ -31,7 +31,7 @@
     "As an Archivist, I want to upload an EAD for import from within the frontend application.",
     "As an Archivist, I want to import EAD data.",
     "As an Archivist, I want to export a description as EAD.",
-    "As an Archivist, I want the overall data export process to be implemented as a pipeline, so that records pass through clearly defined transformation stages and are consistently formatted for external systems."
+    "As an Archivist, I want the overall data export process to be implemented in steps, so that records pass through clearly defined transformations."
   ],
   "Security & Confidentiality": [
     "As a User, I want to authenticate using LDAP.",
