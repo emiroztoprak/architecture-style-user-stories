@@ -1,6 +1,6 @@
 {
     "description": "This concerns ColorIDE, an offline Integrated Development Environment for professional developers built with a core that provides essential editing and debugging capabilities.",
-    "Usability & Accessibility": [
+    "Functionality": [
       "As a Developer, I want a clean, intuitive interface with easily navigable menus, so that I can access core features without distraction.",
       "As a Developer, I want an extensive set of keyboard shortcuts and quick-access commands, so that I can perform common tasks without relying on the mouse.",
       "As a Developer, I want customizable workspace layouts that can be saved and reloaded, so that I can tailor the environment to different projects and personal preferences.",

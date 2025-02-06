@@ -1,12 +1,14 @@
 {
   "description": "This concerns the OpenSpending project, a transparency initiative by the Open Knowledge Foundation focused on how local governments spend money, with a particular emphasis on publishing, importing, editing, and presenting datasets.",
-  "Usability & Accessibility": [
+  "Functionality": [
     "As a Data Consuming User, I want to be able to filter, sort and aggregate data by multiple dimensions and measures, So that I can get more granular views on the data.",
     "As a Data Consuming User, I want to be able to change the display of all monetary measures across a set of currencies, So that I can understand localised amounts in non-localised figures.",
     "As a Data Consuming User, I want to see textual descriptions that accompany embedded visualisations, So that I can more easily understand what I am viewing.",
     "As a Data Consuming User, I want to be able to share a view state as a URL to social networks, So that I can share data that I have found with others.",
     "As a Data Consuming User, I want to be able to search any dataset published and publicly accessible by their title and metadata, So that I can find the datasets I'm interested in.",
     "As a Data Consuming User, I want to visualize by default in treemap, bubble tree, map and pivot table the most recent year when my dataset contain multiple years, So that I'm not confused with the amounts.",
+    "As a Data Publishing User, I want to be able to edit a dataset I have published, So that I can correct or enhance existing data.",
+    "As a Data Publishing User, I want to be able to delete a dataset I have published, So that I can remove unwanted data from OpenSpending.",
     "As a User, I want to be able to set my own username, So that my data is more easily discoverable.",
     "As an API User, I want to be able to get bordering regions|cities when I query a region|city, So that I can provider wider visual context for mapping visualisations.",
     "As an API User, I want to have consistently high download/upload speed.",
@@ -41,8 +43,6 @@
     "As an API User, I want to be able to understand if a user is an Administrator, So that I can offer functionality based on Platform Administration privileges."
   ],
   "Manageability & Maintainability": [
-    "As a Data Publishing User, I want to be able to edit a dataset I have published, So that I can correct or enhance existing data.",
-    "As a Data Publishing User, I want to be able to delete a dataset I have published, So that I can remove unwanted data from OpenSpending.",
     "As a Platform Administrator, I want to have a view on all datasets published by all users, So that I can perform management actions on any dataset.",
     "As a Platform Administrator, I want to be able to delete any dataset published, So that I can deal with takedown requests, or clean up test datasets.",
     "As a Data Publishing User, I want to have a view on all the datasets I have published, So that I can perform management actions on my own datasets.",
